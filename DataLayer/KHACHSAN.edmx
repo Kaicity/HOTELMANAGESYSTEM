@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KHACHSAN.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_congty">
+          <Key>
+            <PropertyRef Name="MACTY" />
+          </Key>
+          <Property Name="MACTY" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TENCTY" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIENTHOAI" Type="nvarchar" MaxLength="10" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="DISABLED" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_datphong">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDKH" Type="int" Nullable="false" />
+          <Property Name="IDPHONG" Type="int" />
+          <Property Name="NGAYDAT" Type="datetime" />
+          <Property Name="NGAYTRA" Type="datetime" />
+          <Property Name="SOTIEN" Type="float" />
+          <Property Name="SONGUOIO" Type="int" />
+          <Property Name="IDUSER" Type="int" Nullable="false" />
+          <Property Name="MACTY" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MADVI" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="STATUS" Type="bit" />
+          <Property Name="DISABLED" Type="bit" />
+          <Property Name="THEODOAN" Type="bit" />
+          <Property Name="GHICHU" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CREATED_DATE" Type="datetime" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+          <Property Name="UPDATE_BY" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_datphong_chitiet">
+          <Key>
+            <PropertyRef Name="IDDPCT" />
+          </Key>
+          <Property Name="IDDPCT" Type="int" Nullable="false" />
+          <Property Name="IDDP" Type="int" />
+          <Property Name="IDPHONG" Type="int" />
+          <Property Name="SONGAYO" Type="int" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="THANHTIEN" Type="float" />
+          <Property Name="NGAY" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_datphong_sanpham">
+          <Key>
+            <PropertyRef Name="IDDPSP" />
+          </Key>
+          <Property Name="IDDPSP" Type="int" Nullable="false" />
+          <Property Name="IDDP" Type="int" Nullable="false" />
+          <Property Name="IDDPCT" Type="int" Nullable="false" />
+          <Property Name="IDPHONG" Type="int" />
+          <Property Name="IDSP" Type="int" Nullable="false" />
+          <Property Name="NGAY" Type="datetime" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="THANHTIEN" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_donvi">
+          <Key>
+            <PropertyRef Name="MADVI" />
+          </Key>
+          <Property Name="MADVI" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TENDVI" Type="nvarchar" MaxLength="200" />
+          <Property Name="DIENTHOAI" Type="nvarchar" MaxLength="10" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="MACTY" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_func">
+          <Key>
+            <PropertyRef Name="FUNC_CODE" />
+            <PropertyRef Name="SORT" />
+          </Key>
+          <Property Name="FUNC_CODE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SORT" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="200" />
+          <Property Name="ISGROUP" Type="bit" />
+          <Property Name="PARENT" Type="nvarchar" MaxLength="50" />
+          <Property Name="MENU" Type="bit" />
+          <Property Name="TIPS" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tb_khachhang">
+          <Key>
+            <PropertyRef Name="IDKH" />
+          </Key>
+          <Property Name="IDKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="CCCD" Type="nvarchar" MaxLength="12" />
+          <Property Name="DIENTHOAI" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tb_loaiphong">
+          <Key>
+            <PropertyRef Name="IDLOAIPHONG" />
+          </Key>
+          <Property Name="IDLOAIPHONG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENLOAIPHONG" Type="nvarchar" MaxLength="50" />
+          <Property Name="DONGIA" Type="float" />
+          <Property Name="SONGUOI" Type="int" />
+          <Property Name="SOGIUONG" Type="int" />
+          <Property Name="DISABLED" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_param">
+          <Key>
+            <PropertyRef Name="MACTY" />
+            <PropertyRef Name="MADVI" />
+          </Key>
+          <Property Name="MACTY" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MADVI" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TENCTY" Type="nvarchar" MaxLength="50" />
+          <Property Name="TENDVI" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_phong">
+          <Key>
+            <PropertyRef Name="IDPHONG" />
+          </Key>
+          <Property Name="IDPHONG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENPHONG" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRANGTHAI" Type="bit" />
+          <Property Name="IDTANG" Type="int" Nullable="false" />
+          <Property Name="IDLOAIPHONG" Type="int" Nullable="false" />
+          <Property Name="IMAGE" Type="image" />
+        </EntityType>
+        <EntityType Name="tb_phong_thietbi">
+          <Key>
+            <PropertyRef Name="IDPHONG" />
+            <PropertyRef Name="IDTB" />
+          </Key>
+          <Property Name="IDPHONG" Type="int" Nullable="false" />
+          <Property Name="IDTB" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_sanpham">
+          <Key>
+            <PropertyRef Name="IDSP" />
+          </Key>
+          <Property Name="IDSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENSP" Type="nvarchar" MaxLength="50" />
+          <Property Name="DONGIA" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_tang">
+          <Key>
+            <PropertyRef Name="IDTANG" />
+          </Key>
+          <Property Name="IDTANG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENTANG" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_thietbi">
+          <Key>
+            <PropertyRef Name="IDTB" />
+          </Key>
+          <Property Name="IDTB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENTB" Type="nvarchar" MaxLength="50" />
+          <Property Name="DONGIA" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_user">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FULLNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+          <Property Name="MACTY" Type="nvarchar" MaxLength="10" />
+          <Property Name="MADVI" Type="nvarchar" MaxLength="10" />
+          <Property Name="ISGROUP" Type="int" />
+          <Property Name="DISABLED" Type="bit" />
+        </EntityType>
+        <Association Name="FK_tb_donvi_tb_congty">
+          <End Role="tb_congty" Type="Self.tb_congty" Multiplicity="1" />
+          <End Role="tb_donvi" Type="Self.tb_donvi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_congty">
+              <PropertyRef Name="MACTY" />
+            </Principal>
+            <Dependent Role="tb_donvi">
+              <PropertyRef Name="MACTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_tb_loaiphong">
+          <End Role="tb_loaiphong" Type="Self.tb_loaiphong" Multiplicity="1" />
+          <End Role="tb_phong" Type="Self.tb_phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_loaiphong">
+              <PropertyRef Name="IDLOAIPHONG" />
+            </Principal>
+            <Dependent Role="tb_phong">
+              <PropertyRef Name="IDLOAIPHONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_tb_tang">
+          <End Role="tb_tang" Type="Self.tb_tang" Multiplicity="1" />
+          <End Role="tb_phong" Type="Self.tb_phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_tang">
+              <PropertyRef Name="IDTANG" />
+            </Principal>
+            <Dependent Role="tb_phong">
+              <PropertyRef Name="IDTANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_thietbi_tb_phong">
+          <End Role="tb_phong" Type="Self.tb_phong" Multiplicity="1" />
+          <End Role="tb_phong_thietbi" Type="Self.tb_phong_thietbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_phong">
+              <PropertyRef Name="IDPHONG" />
+            </Principal>
+            <Dependent Role="tb_phong_thietbi">
+              <PropertyRef Name="IDPHONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_thietbi_tb_thietbi">
+          <End Role="tb_thietbi" Type="Self.tb_thietbi" Multiplicity="1" />
+          <End Role="tb_phong_thietbi" Type="Self.tb_phong_thietbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_thietbi">
+              <PropertyRef Name="IDTB" />
+            </Principal>
+            <Dependent Role="tb_phong_thietbi">
+              <PropertyRef Name="IDTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KHACHSANStoreContainer">
+          <EntitySet Name="tb_congty" EntityType="Self.tb_congty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_datphong" EntityType="Self.tb_datphong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_datphong_chitiet" EntityType="Self.tb_datphong_chitiet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_datphong_sanpham" EntityType="Self.tb_datphong_sanpham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_donvi" EntityType="Self.tb_donvi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_func" EntityType="Self.tb_func" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_khachhang" EntityType="Self.tb_khachhang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_loaiphong" EntityType="Self.tb_loaiphong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_param" EntityType="Self.tb_param" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_phong" EntityType="Self.tb_phong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_phong_thietbi" EntityType="Self.tb_phong_thietbi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_sanpham" EntityType="Self.tb_sanpham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tang" EntityType="Self.tb_tang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_thietbi" EntityType="Self.tb_thietbi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_user" EntityType="Self.tb_user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_donvi_tb_congty" Association="Self.FK_tb_donvi_tb_congty">
+            <End Role="tb_congty" EntitySet="tb_congty" />
+            <End Role="tb_donvi" EntitySet="tb_donvi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_tb_loaiphong" Association="Self.FK_tb_phong_tb_loaiphong">
+            <End Role="tb_loaiphong" EntitySet="tb_loaiphong" />
+            <End Role="tb_phong" EntitySet="tb_phong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_tb_tang" Association="Self.FK_tb_phong_tb_tang">
+            <End Role="tb_tang" EntitySet="tb_tang" />
+            <End Role="tb_phong" EntitySet="tb_phong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_thietbi_tb_phong" Association="Self.FK_tb_phong_thietbi_tb_phong">
+            <End Role="tb_phong" EntitySet="tb_phong" />
+            <End Role="tb_phong_thietbi" EntitySet="tb_phong_thietbi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_thietbi_tb_thietbi" Association="Self.FK_tb_phong_thietbi_tb_thietbi">
+            <End Role="tb_thietbi" EntitySet="tb_thietbi" />
+            <End Role="tb_phong_thietbi" EntitySet="tb_phong_thietbi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KHACHSAN" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_khachhang">
+          <Key>
+            <PropertyRef Name="IDKH" />
+          </Key>
+          <Property Name="IDKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOTEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="DIENTHOAI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_sanpham">
+          <Key>
+            <PropertyRef Name="IDSP" />
+          </Key>
+          <Property Name="IDSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DONGIA" Type="Double" />
+        </EntityType>
+        <EntityType Name="tb_user">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MACTY" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MADVI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ISGROUP" Type="Int32" />
+          <Property Name="DISABLED" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_khachhang" EntityType="Self.tb_khachhang" />
+          <EntitySet Name="tb_sanpham" EntityType="Self.tb_sanpham" />
+          <EntitySet Name="tb_user" EntityType="Self.tb_user" />
+          <EntitySet Name="tb_func" EntityType="KHACHSAN.tb_func" />
+          <EntitySet Name="tb_congty" EntityType="KHACHSAN.tb_congty" />
+          <EntitySet Name="tb_loaiphong" EntityType="KHACHSAN.tb_loaiphong" />
+          <EntitySet Name="tb_phong" EntityType="KHACHSAN.tb_phong" />
+          <EntitySet Name="tb_phong_thietbi" EntityType="KHACHSAN.tb_phong_thietbi" />
+          <EntitySet Name="tb_tang" EntityType="KHACHSAN.tb_tang" />
+          <EntitySet Name="tb_thietbi" EntityType="KHACHSAN.tb_thietbi" />
+          <AssociationSet Name="FK_tb_phong_tb_loaiphong" Association="KHACHSAN.FK_tb_phong_tb_loaiphong">
+            <End Role="tb_loaiphong" EntitySet="tb_loaiphong" />
+            <End Role="tb_phong" EntitySet="tb_phong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_tb_tang" Association="KHACHSAN.FK_tb_phong_tb_tang">
+            <End Role="tb_tang" EntitySet="tb_tang" />
+            <End Role="tb_phong" EntitySet="tb_phong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_thietbi_tb_phong" Association="KHACHSAN.FK_tb_phong_thietbi_tb_phong">
+            <End Role="tb_phong" EntitySet="tb_phong" />
+            <End Role="tb_phong_thietbi" EntitySet="tb_phong_thietbi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_phong_thietbi_tb_thietbi" Association="KHACHSAN.FK_tb_phong_thietbi_tb_thietbi">
+            <End Role="tb_thietbi" EntitySet="tb_thietbi" />
+            <End Role="tb_phong_thietbi" EntitySet="tb_phong_thietbi" />
+          </AssociationSet>
+          <EntitySet Name="tb_donvi" EntityType="KHACHSAN.tb_donvi" />
+          <AssociationSet Name="FK_tb_donvi_tb_congty" Association="KHACHSAN.FK_tb_donvi_tb_congty">
+            <End Role="tb_congty" EntitySet="tb_congty" />
+            <End Role="tb_donvi" EntitySet="tb_donvi" />
+          </AssociationSet>
+          <EntitySet Name="tb_datphong" EntityType="KHACHSAN.tb_datphong" />
+          <EntitySet Name="tb_datphong_chitiet" EntityType="KHACHSAN.tb_datphong_chitiet" />
+          <EntitySet Name="tb_param" EntityType="KHACHSAN.tb_param" />
+          <EntitySet Name="tb_datphong_sanpham" EntityType="KHACHSAN.tb_datphong_sanpham" />
+          </EntityContainer>
+        <EntityType Name="tb_func">
+          <Key>
+            <PropertyRef Name="FUNC_CODE" />
+            <PropertyRef Name="SORT" />
+          </Key>
+          <Property Name="FUNC_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SORT" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ISGROUP" Type="Boolean" />
+          <Property Name="PARENT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MENU" Type="Boolean" />
+          <Property Name="TIPS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_congty">
+          <Key>
+            <PropertyRef Name="MACTY" />
+          </Key>
+          <Property Name="MACTY" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TENCTY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIENTHOAI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <NavigationProperty Name="tb_donvi" Relationship="KHACHSAN.FK_tb_donvi_tb_congty" FromRole="tb_congty" ToRole="tb_donvi" />
+        </EntityType>
+        <EntityType Name="tb_loaiphong">
+          <Key>
+            <PropertyRef Name="IDLOAIPHONG" />
+          </Key>
+          <Property Name="IDLOAIPHONG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENLOAIPHONG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="SONGUOI" Type="Int32" />
+          <Property Name="SOGIUONG" Type="Int32" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <NavigationProperty Name="tb_phong" Relationship="KHACHSAN.FK_tb_phong_tb_loaiphong" FromRole="tb_loaiphong" ToRole="tb_phong" />
+        </EntityType>
+        <EntityType Name="tb_phong">
+          <Key>
+            <PropertyRef Name="IDPHONG" />
+          </Key>
+          <Property Name="IDPHONG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENPHONG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAI" Type="Boolean" />
+          <Property Name="IDTANG" Type="Int32" Nullable="false" />
+          <Property Name="IDLOAIPHONG" Type="Int32" Nullable="false" />
+          <Property Name="IMAGE" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tb_loaiphong" Relationship="KHACHSAN.FK_tb_phong_tb_loaiphong" FromRole="tb_phong" ToRole="tb_loaiphong" />
+          <NavigationProperty Name="tb_tang" Relationship="KHACHSAN.FK_tb_phong_tb_tang" FromRole="tb_phong" ToRole="tb_tang" />
+          <NavigationProperty Name="tb_phong_thietbi" Relationship="KHACHSAN.FK_tb_phong_thietbi_tb_phong" FromRole="tb_phong" ToRole="tb_phong_thietbi" />
+        </EntityType>
+        <EntityType Name="tb_phong_thietbi">
+          <Key>
+            <PropertyRef Name="IDPHONG" />
+            <PropertyRef Name="IDTB" />
+          </Key>
+          <Property Name="IDPHONG" Type="Int32" Nullable="false" />
+          <Property Name="IDTB" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="tb_phong" Relationship="KHACHSAN.FK_tb_phong_thietbi_tb_phong" FromRole="tb_phong_thietbi" ToRole="tb_phong" />
+          <NavigationProperty Name="tb_thietbi" Relationship="KHACHSAN.FK_tb_phong_thietbi_tb_thietbi" FromRole="tb_phong_thietbi" ToRole="tb_thietbi" />
+        </EntityType>
+        <EntityType Name="tb_tang">
+          <Key>
+            <PropertyRef Name="IDTANG" />
+          </Key>
+          <Property Name="IDTANG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTANG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_phong" Relationship="KHACHSAN.FK_tb_phong_tb_tang" FromRole="tb_tang" ToRole="tb_phong" />
+        </EntityType>
+        <EntityType Name="tb_thietbi">
+          <Key>
+            <PropertyRef Name="IDTB" />
+          </Key>
+          <Property Name="IDTB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DONGIA" Type="Double" />
+          <NavigationProperty Name="tb_phong_thietbi" Relationship="KHACHSAN.FK_tb_phong_thietbi_tb_thietbi" FromRole="tb_thietbi" ToRole="tb_phong_thietbi" />
+        </EntityType>
+        <Association Name="FK_tb_phong_tb_loaiphong">
+          <End Type="KHACHSAN.tb_loaiphong" Role="tb_loaiphong" Multiplicity="1" />
+          <End Type="KHACHSAN.tb_phong" Role="tb_phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_loaiphong">
+              <PropertyRef Name="IDLOAIPHONG" />
+            </Principal>
+            <Dependent Role="tb_phong">
+              <PropertyRef Name="IDLOAIPHONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_tb_tang">
+          <End Type="KHACHSAN.tb_tang" Role="tb_tang" Multiplicity="1" />
+          <End Type="KHACHSAN.tb_phong" Role="tb_phong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_tang">
+              <PropertyRef Name="IDTANG" />
+            </Principal>
+            <Dependent Role="tb_phong">
+              <PropertyRef Name="IDTANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_thietbi_tb_phong">
+          <End Type="KHACHSAN.tb_phong" Role="tb_phong" Multiplicity="1" />
+          <End Type="KHACHSAN.tb_phong_thietbi" Role="tb_phong_thietbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_phong">
+              <PropertyRef Name="IDPHONG" />
+            </Principal>
+            <Dependent Role="tb_phong_thietbi">
+              <PropertyRef Name="IDPHONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_phong_thietbi_tb_thietbi">
+          <End Type="KHACHSAN.tb_thietbi" Role="tb_thietbi" Multiplicity="1" />
+          <End Type="KHACHSAN.tb_phong_thietbi" Role="tb_phong_thietbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_thietbi">
+              <PropertyRef Name="IDTB" />
+            </Principal>
+            <Dependent Role="tb_phong_thietbi">
+              <PropertyRef Name="IDTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_donvi">
+          <Key>
+            <PropertyRef Name="MADVI" />
+          </Key>
+          <Property Name="MADVI" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TENDVI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DIENTHOAI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MACTY" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_congty" Relationship="KHACHSAN.FK_tb_donvi_tb_congty" FromRole="tb_donvi" ToRole="tb_congty" />
+        </EntityType>
+        <Association Name="FK_tb_donvi_tb_congty">
+          <End Type="KHACHSAN.tb_congty" Role="tb_congty" Multiplicity="1" />
+          <End Type="KHACHSAN.tb_donvi" Role="tb_donvi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_congty">
+              <PropertyRef Name="MACTY" />
+            </Principal>
+            <Dependent Role="tb_donvi">
+              <PropertyRef Name="MACTY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_datphong">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDKH" Type="Int32" Nullable="false" />
+          <Property Name="IDPHONG" Type="Int32" />
+          <Property Name="NGAYDAT" Type="DateTime" Precision="3" />
+          <Property Name="NGAYTRA" Type="DateTime" Precision="3" />
+          <Property Name="SOTIEN" Type="Double" />
+          <Property Name="SONGUOIO" Type="Int32" />
+          <Property Name="IDUSER" Type="Int32" Nullable="false" />
+          <Property Name="MACTY" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MADVI" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="DISABLED" Type="Boolean" />
+          <Property Name="THEODOAN" Type="Boolean" />
+          <Property Name="GHICHU" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATE_BY" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tb_datphong_chitiet">
+          <Key>
+            <PropertyRef Name="IDDPCT" />
+          </Key>
+          <Property Name="IDDPCT" Type="Int32" Nullable="false" />
+          <Property Name="IDDP" Type="Int32" />
+          <Property Name="IDPHONG" Type="Int32" />
+          <Property Name="SONGAYO" Type="Int32" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="THANHTIEN" Type="Double" />
+          <Property Name="NGAY" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tb_param">
+          <Key>
+            <PropertyRef Name="MACTY" />
+            <PropertyRef Name="MADVI" />
+          </Key>
+          <Property Name="MACTY" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MADVI" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TENCTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TENDVI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_datphong_sanpham">
+          <Key>
+            <PropertyRef Name="IDDPSP" />
+          </Key>
+          <Property Name="IDDPSP" Type="Int32" Nullable="false" />
+          <Property Name="IDDP" Type="Int32" Nullable="false" />
+          <Property Name="IDDPCT" Type="Int32" Nullable="false" />
+          <Property Name="IDPHONG" Type="Int32" />
+          <Property Name="IDSP" Type="Int32" Nullable="false" />
+          <Property Name="NGAY" Type="DateTime" Precision="3" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Double" />
+          <Property Name="THANHTIEN" Type="Double" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KHACHSANStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="tb_khachhang">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_khachhang">
+              <MappingFragment StoreEntitySet="tb_khachhang">
+                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="CCCD" ColumnName="CCCD" />
+                <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_sanpham">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_sanpham">
+              <MappingFragment StoreEntitySet="tb_sanpham">
+                <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+                <ScalarProperty Name="TENSP" ColumnName="TENSP" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_user">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_user">
+              <MappingFragment StoreEntitySet="tb_user">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="MACTY" ColumnName="MACTY" />
+                <ScalarProperty Name="MADVI" ColumnName="MADVI" />
+                <ScalarProperty Name="ISGROUP" ColumnName="ISGROUP" />
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_func">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_func">
+              <MappingFragment StoreEntitySet="tb_func">
+                <ScalarProperty Name="TIPS" ColumnName="TIPS" />
+                <ScalarProperty Name="MENU" ColumnName="MENU" />
+                <ScalarProperty Name="PARENT" ColumnName="PARENT" />
+                <ScalarProperty Name="ISGROUP" ColumnName="ISGROUP" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="SORT" ColumnName="SORT" />
+                <ScalarProperty Name="FUNC_CODE" ColumnName="FUNC_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_congty">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_congty">
+              <MappingFragment StoreEntitySet="tb_congty">
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="TENCTY" ColumnName="TENCTY" />
+                <ScalarProperty Name="MACTY" ColumnName="MACTY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_loaiphong">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_loaiphong">
+              <MappingFragment StoreEntitySet="tb_loaiphong">
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="SOGIUONG" ColumnName="SOGIUONG" />
+                <ScalarProperty Name="SONGUOI" ColumnName="SONGUOI" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="TENLOAIPHONG" ColumnName="TENLOAIPHONG" />
+                <ScalarProperty Name="IDLOAIPHONG" ColumnName="IDLOAIPHONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_phong">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_phong">
+              <MappingFragment StoreEntitySet="tb_phong">
+                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="IDLOAIPHONG" ColumnName="IDLOAIPHONG" />
+                <ScalarProperty Name="IDTANG" ColumnName="IDTANG" />
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="TENPHONG" ColumnName="TENPHONG" />
+                <ScalarProperty Name="IDPHONG" ColumnName="IDPHONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_phong_thietbi">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_phong_thietbi">
+              <MappingFragment StoreEntitySet="tb_phong_thietbi">
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="IDTB" ColumnName="IDTB" />
+                <ScalarProperty Name="IDPHONG" ColumnName="IDPHONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tang">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_tang">
+              <MappingFragment StoreEntitySet="tb_tang">
+                <ScalarProperty Name="TENTANG" ColumnName="TENTANG" />
+                <ScalarProperty Name="IDTANG" ColumnName="IDTANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_thietbi">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_thietbi">
+              <MappingFragment StoreEntitySet="tb_thietbi">
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="TENTB" ColumnName="TENTB" />
+                <ScalarProperty Name="IDTB" ColumnName="IDTB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_donvi">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_donvi">
+              <MappingFragment StoreEntitySet="tb_donvi">
+                <ScalarProperty Name="MACTY" ColumnName="MACTY" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="TENDVI" ColumnName="TENDVI" />
+                <ScalarProperty Name="MADVI" ColumnName="MADVI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_datphong">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_datphong">
+              <MappingFragment StoreEntitySet="tb_datphong">
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+                <ScalarProperty Name="THEODOAN" ColumnName="THEODOAN" />
+                <ScalarProperty Name="DISABLED" ColumnName="DISABLED" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="MADVI" ColumnName="MADVI" />
+                <ScalarProperty Name="MACTY" ColumnName="MACTY" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="SONGUOIO" ColumnName="SONGUOIO" />
+                <ScalarProperty Name="SOTIEN" ColumnName="SOTIEN" />
+                <ScalarProperty Name="NGAYTRA" ColumnName="NGAYTRA" />
+                <ScalarProperty Name="NGAYDAT" ColumnName="NGAYDAT" />
+                <ScalarProperty Name="IDPHONG" ColumnName="IDPHONG" />
+                <ScalarProperty Name="IDKH" ColumnName="IDKH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_datphong_chitiet">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_datphong_chitiet">
+              <MappingFragment StoreEntitySet="tb_datphong_chitiet">
+                <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SONGAYO" ColumnName="SONGAYO" />
+                <ScalarProperty Name="IDPHONG" ColumnName="IDPHONG" />
+                <ScalarProperty Name="IDDP" ColumnName="IDDP" />
+                <ScalarProperty Name="IDDPCT" ColumnName="IDDPCT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_param">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_param">
+              <MappingFragment StoreEntitySet="tb_param">
+                <ScalarProperty Name="TENDVI" ColumnName="TENDVI" />
+                <ScalarProperty Name="TENCTY" ColumnName="TENCTY" />
+                <ScalarProperty Name="MADVI" ColumnName="MADVI" />
+                <ScalarProperty Name="MACTY" ColumnName="MACTY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_datphong_sanpham">
+            <EntityTypeMapping TypeName="KHACHSAN.tb_datphong_sanpham">
+              <MappingFragment StoreEntitySet="tb_datphong_sanpham">
+                <ScalarProperty Name="THANHTIEN" ColumnName="THANHTIEN" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+                <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+                <ScalarProperty Name="IDPHONG" ColumnName="IDPHONG" />
+                <ScalarProperty Name="IDDPCT" ColumnName="IDDPCT" />
+                <ScalarProperty Name="IDDP" ColumnName="IDDP" />
+                <ScalarProperty Name="IDDPSP" ColumnName="IDDPSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

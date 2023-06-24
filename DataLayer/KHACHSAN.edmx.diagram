@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="069096db07af454b959f36f9019b8a96" Name="Diagram1">
+        <EntityTypeShape EntityType="KHACHSAN.tb_khachhang" Width="1.5" PointX="0.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_sanpham" Width="1.5" PointX="4.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_user" Width="1.5" PointX="5.875" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_func" Width="1.5" PointX="2.5" PointY="3.75" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_congty" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_loaiphong" Width="1.5" PointX="8" PointY="8.25" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_phong" Width="1.5" PointX="8.25" PointY="4.75" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_phong_thietbi" Width="1.625" PointX="10.625" PointY="2.875" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_tang" Width="1.5" PointX="11" PointY="6.75" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_thietbi" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="KHACHSAN.FK_tb_phong_tb_loaiphong" />
+        <AssociationConnector Association="KHACHSAN.FK_tb_phong_tb_tang" />
+        <AssociationConnector Association="KHACHSAN.FK_tb_phong_thietbi_tb_phong" />
+        <AssociationConnector Association="KHACHSAN.FK_tb_phong_thietbi_tb_thietbi" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_donvi" Width="1.5" PointX="2.875" PointY="0.5" />
+        <AssociationConnector Association="KHACHSAN.FK_tb_donvi_tb_congty" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong" Width="1.75" PointX="1" PointY="6.625" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_chitiet" Width="2.125" PointX="0.5" PointY="12.125" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_param" Width="1.5" PointX="3.5" PointY="8" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_sanpham" Width="1.875" PointX="3.375" PointY="10.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
