@@ -24,6 +24,7 @@ namespace THUEPHONG
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmMainFull());
+            //hello
 
             /*if (File.Exists("connectdb.dba"))
             {
