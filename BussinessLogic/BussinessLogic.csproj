@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DATPHONGSP.cs" />
     <Compile Include="CONGTY.cs" />
     <Compile Include="DATPHONG.cs" />
     <Compile Include="DATPHONGCT.cs" />

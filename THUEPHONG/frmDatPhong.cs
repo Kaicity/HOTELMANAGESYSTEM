@@ -3,6 +3,7 @@ using DataLayer;
 using DevExpress.Utils.Gesture;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraRichEdit.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,7 @@ namespace THUEPHONG
         bool _them;
         DATPHONG _datphong;
         DATPHONGCT _datphongct;
+        DATPHONGSP _datphongsp;
         KHACHHANG _khachhang;
         SANPHAM _sanpham;
         SYS_PARAM _sys_param;
@@ -30,8 +32,16 @@ namespace THUEPHONG
         string _maCty;
         string _maDvi;
 
+        //Xu ly keo tha value
         int _idPhong;
         string _tenphong;
+
+        //ID Value get
+        int _idDatPhong;
+
+        //Value number money
+        double totalPhongAndSanPham;
+
 
         //Khai bao mot List<> su dung cho Gridview San Pham vi khi Click chon khong cung cau truc 
         List<OBJ_DPSP> listDPSP;
@@ -61,6 +71,7 @@ namespace THUEPHONG
             _sys_param = new SYS_PARAM();
             _datphongct = new DATPHONGCT();
             _phong = new PHONG();
+            _datphongsp = new DATPHONGSP();
 
             var _pr = _sys_param.GetParam();
             _maCty = _pr.MACTY;
@@ -78,10 +89,19 @@ namespace THUEPHONG
             //load data
             loadSanPham();
             loadDataCb_KhachHang();
-            cbTrangThai.DataSource = TRANGTHAI.getListPhong();
+            cbTrangThai.DataSource = TRANGTHAI.getList();
             cbTrangThai.ValueMember = "_value";
             cbTrangThai.DisplayMember = "_display";
 
+            //Load Data Dat phong
+            loadDataDatPhong();
+
+        }
+
+        void loadDataDatPhong()
+        {
+            gcDanhSach.DataSource = _datphong.getAll();
+            gvDanhSach.OptionsBehavior.Editable = false;
         }
 
         void loadSanPham()
@@ -131,8 +151,8 @@ namespace THUEPHONG
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-           //Xac nhan Luu cac du lieu vua them
-
+            //Xac nhan Luu cac du lieu vua them
+            saveData();
             _them = false;
             //loadData();
             showHideControls(true);
@@ -154,23 +174,25 @@ namespace THUEPHONG
                 dp.STATUS = bool.Parse(cbTrangThai.SelectedValue.ToString());
                 dp.THEODOAN = checkTheoDoan.Checked;
                 dp.IDKH = Convert.ToInt32(cbKhachHang.SelectedValue.ToString());
-                dp.SOTIEN = double.Parse(tfTotal.Text);
+                dp.SOTIEN = totalPhongAndSanPham;
                 dp.GHICHU = tfGhiChu.Text;
                 dp.IDUSER = 1;
+                dp.DISABLED = false;
                 dp.MACTY = _maCty;
                 dp.MADVI = _maDvi;
                 //Sau khi them du lieu tra ve ID dat phong
-                var _dps = _datphong.add(dp);
+                var _dpObj = _datphong.add(dp);
 
                 for(int i = 0; i < gvPhongDat.RowCount; i++)
                 {
                     dpct = new tb_datphong_chitiet();
-                    dpct.IDDP = _dps.ID;
-                    dpct.IDPHONG = int.Parse(gvPhongDat.Rows[i].Cells["IDPHONG"].Value.ToString());
+                    dpct.IDDP = _dpObj.ID;
+                    dpct.IDPHONG = int.Parse(gvPhongDat.Rows[i].Cells["dpIDPHONG"].Value.ToString());
                     dpct.SONGAYO = dateNgayTra.Value.Day - dateNgayDat.Value.Day;
-                    dpct.DONGIA = int.Parse(gvPhongDat.Rows[i].Cells["DONGIA"].Value.ToString());
-                    dpct.THANHTIEN = dpct.SONGAYO * dpct.DONGIA;
-                    _datphongct.add(dpct);
+                    dpct.DONGIA = double.Parse(gvPhongDat.Rows[i].Cells["dpDONGIA"].Value.ToString());
+                    dpct.THANHTIEN = (double)dpct.SONGAYO * dpct.DONGIA;
+                    dpct.NGAY = DateTime.Now;
+                    var _dpctObject = _datphongct.add(dpct);
                     _phong.updateStatus(int.Parse(dpct.IDPHONG.ToString()), true);
 
                     if(gvSuDungSPDV.RowCount > 0)
@@ -178,21 +200,68 @@ namespace THUEPHONG
                         //San pham trong moi phong duoc dat o chi tiet dat phong
                         for (int j = 0; j < gvSuDungSPDV.RowCount; j++)
                         {
-
+                            if(dpct.IDPHONG == int.Parse(gvSuDungSPDV.Rows[j].Cells["spIDPHONG"].Value.ToString()))
+                            {
+                                dpsp = new tb_datphong_sanpham();
+                                dpsp.IDDP = _dpObj.ID;
+                                dpsp.IDPHONG = int.Parse(gvSuDungSPDV.Rows[j].Cells["spIDPHONG"].Value.ToString());
+                                dpsp.IDDPCT = _dpctObject.IDDPCT;
+                                dpsp.IDSP = int.Parse(gvSuDungSPDV.Rows[j].Cells["spIDSP"].Value.ToString());
+                                dpsp.SOLUONG = int.Parse(gvSuDungSPDV.Rows[j].Cells["spSOLUONG"].Value.ToString());
+                                dpsp.DONGIA = double.Parse(gvSuDungSPDV.Rows[j].Cells["spDONGIA"].Value.ToString());
+                                dpsp.NGAY = DateTime.Now;
+                                dpsp.THANHTIEN = double.Parse(gvSuDungSPDV.Rows[j].Cells["spTHANHTIEN"].Value.ToString());
+                                _datphongsp.add(dpsp);
+                            }
+                            else
+                            {
+                                dpsp = new tb_datphong_sanpham();
+                                dpsp.IDDP = _dpObj.ID;
+                                dpsp.IDPHONG = dpct.IDPHONG;
+                                _datphongsp.add(dpsp);
+                                break;
+                            }
                         }
                     }
                     else
                     {
                         dpsp = new tb_datphong_sanpham();
-                        dpsp.IDDP = _dps.ID;
+                        dpsp.IDDP = _dpObj.ID;
                         dpsp.IDPHONG = dpct.IDPHONG;
+                        _datphongsp.add(dpsp);
                     }
 
                 }
             }
             else
             {
+                //update
+                if (_idDatPhong == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn dữ liệu trước khi sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    tb_datphong dp = new tb_datphong(); //Luu theo thu tu dat phong truoc
+                    tb_datphong_chitiet dpct; // Chua new obj doi dat phong co day du du lieu
+                    tb_datphong_sanpham dpsp;
 
+                    dp.NGAYDAT = dateNgayDat.Value;
+                    dp.NGAYTRA = dateNgayTra.Value;
+                    dp.SONGUOIO = Convert.ToInt32(numSLNguoi.Value);
+                    dp.STATUS = bool.Parse(cbTrangThai.SelectedValue.ToString());
+                    dp.IDKH = Convert.ToInt32(cbKhachHang.SelectedValue.ToString());
+                    dp.SOTIEN = double.Parse(tfTotal.Text);
+                    dp.GHICHU = tfGhiChu.Text;
+                    dp.IDUSER = 1;
+                    //Sau khi update du lieu tra ve ID dat phong
+                    var _dpObj = _datphong.update(dp);
+
+                    //Truoc khi update xoa data cua DPCT va DPSP <*>
+                    _datphongct.deleteAll(_idDatPhong);
+                    _datphongsp.deleteAll(_idDatPhong);
+
+                }
             }
         }
 
@@ -253,11 +322,16 @@ namespace THUEPHONG
 
         private void gvPhong_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            int idPhongDel;
+            bool delFound = false;
+
             _idPhong = int.Parse(gvPhong.Rows[e.RowIndex].Cells["IDPHONG"].Value.ToString());
             _tenphong = gvPhong.Rows[e.RowIndex].Cells["TENPHONG"].Value.ToString();
 
             if (e.Button == MouseButtons.Left && e.RowIndex >= 0)
             {
+                idPhongDel = int.Parse(gvPhong.Rows[e.RowIndex].Cells["IDPHONG"].Value.ToString());
+
                 // Lấy dòng dữ liệu được chọn
                 DataGridViewRow selectedRow = gvPhong.Rows[e.RowIndex];
 
@@ -274,15 +348,34 @@ namespace THUEPHONG
                ((DataTable)gvPhongDat.DataSource).Rows.Add(newRow);
 
                 gvPhong.Rows.RemoveAt(e.RowIndex);
+
+                //Neu chon lai phong da xoa 
+                for (int i = 0; i < gvSuDungSPDV.RowCount;)
+                {
+                    int value = int.Parse(gvSuDungSPDV.Rows[i].Cells["spIDPHONG"].Value.ToString());
+                    if (idPhongDel == value)
+                    {
+                        delFound = true;
+                        gvSuDungSPDV.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    i++;
+                }
                 calcu();
             }
+
+            if (delFound)
+                Console.WriteLine("Success");
+            else
+                Console.WriteLine("Non");
         }
 
         private void gvPhongDat_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            int idPhongDel;
+            bool delFound = false;
 
             //Khong cho phep loai bo phong khi da dat san pham
-            if (e.RowIndex == 0)
+            if (e.RowIndex <= 0)
             {
                 MessageBox.Show("Ít nhất phải có một phòng", "Thông báo",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -290,6 +383,7 @@ namespace THUEPHONG
             {
                 if (e.Button == MouseButtons.Left && e.RowIndex >= 0)
                 {
+                    idPhongDel = int.Parse(gvPhongDat.Rows[e.RowIndex].Cells["dpIDPHONG"].Value.ToString());
                     // Lấy dòng dữ liệu được chọn
                     DataGridViewRow selectedRow = gvPhongDat.Rows[e.RowIndex];
 
@@ -306,10 +400,25 @@ namespace THUEPHONG
                     ((DataTable)gvPhong.DataSource).Rows.Add(newRow);
 
                     gvPhongDat.Rows.RemoveAt(e.RowIndex);
+                    //duyet du lieu vua xoa bang tren co ton tai bang duoi hay khong
+                    for(int i = 0; i < gvSuDungSPDV.RowCount;)
+                    {
+                        int value = int.Parse(gvSuDungSPDV.Rows[i].Cells["spIDPHONG"].Value.ToString());
+                        if(idPhongDel == value)
+                        {
+                            delFound = true;
+                            gvSuDungSPDV.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                        }
+                        i++;
+                    }
+
                     calcu();
                 }
             }
-
+            if (delFound)
+                Console.WriteLine("Success");
+            else
+                Console.WriteLine("Non");
         }
 
         private void gvPhong_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -535,7 +644,7 @@ namespace THUEPHONG
             }
 
             //Tinh tong cong so tien phai tra
-            double totalPhongAndSanPham = sumGiaTienSPDV + sumDonGiaPhong;
+            totalPhongAndSanPham = sumGiaTienSPDV + sumDonGiaPhong;
             var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
             string formatMoneyValue = String.Format(info, "{0:c}", totalPhongAndSanPham);
             tfTotal.Text = formatMoneyValue;
@@ -563,6 +672,26 @@ namespace THUEPHONG
             var _kh = _khachhang.getItem(idKH);
             cbKhachHang.SelectedValue = _kh;
             cbKhachHang.Text = _kh.HOTEN;
+        }
+
+        private void gvPhongDat_Click(object sender, EventArgs e)
+        {
+            if (gvPhongDat.Rows.Count > 0)
+            {
+                for (int i = 0; i < gvPhongDat.Rows.Count; i++)
+                {
+                    _idPhong = int.Parse(gvPhongDat.Rows[i].Cells["dpIDPHONG"].Value.ToString());
+                    _tenphong = gvPhongDat.Rows[i].Cells["dpTENPHONG"].Value.ToString();
+                }
+            }
+        }
+
+        private void gvDanhSach_Click(object sender, EventArgs e)
+        {
+            if(gvDanhSach.RowCount > 0)
+            {
+                _idDatPhong = int.Parse(gvDanhSach.GetFocusedRowCellValue("ID").ToString());
+            }
         }
     }
 }

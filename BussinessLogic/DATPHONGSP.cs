@@ -7,31 +7,30 @@ using System.Threading.Tasks;
 
 namespace BussinessLogic
 {
-    public class DATPHONGCT
+    public class DATPHONGSP
     {
         Entities db;
 
-        public DATPHONGCT()
+        public DATPHONGSP()
         {
             db = Entities.CreateEntities();
         }
 
-        public tb_datphong_chitiet getItem(int idDpCT)
+        public tb_datphong_sanpham getItem(int idDPSP)
         {
-            return db.tb_datphong_chitiet.FirstOrDefault(x => x.IDDPCT == idDpCT);
+            return db.tb_datphong_sanpham.FirstOrDefault(x => x.IDDPSP == idDPSP);
         }
 
-        public List<tb_datphong_chitiet> getAll()
+        public List<tb_datphong_sanpham> getAll()
         {
-            return db.tb_datphong_chitiet.ToList();
+            return db.tb_datphong_sanpham.ToList();
         }
-        public tb_datphong_chitiet add(tb_datphong_chitiet datphongCT)
+        public void add(tb_datphong_sanpham datphongSP)
         {
             try
             {
-                db.tb_datphong_chitiet.Add(datphongCT);
+                db.tb_datphong_sanpham.Add(datphongSP);
                 db.SaveChanges();
-                return datphongCT;
             }
             catch (Exception ex)
             {
@@ -39,17 +38,19 @@ namespace BussinessLogic
             }
         }
 
-        public void update(tb_datphong_chitiet datphongCT)
+        public void update(tb_datphong_sanpham datphongSP)
         {
             //Update table theo ma cong ty
-            tb_datphong_chitiet _datphongCT_ct = db.tb_datphong_chitiet.FirstOrDefault(x => x.IDDPCT == datphongCT.IDDPCT);
-            _datphongCT_ct.IDDP = datphongCT.IDDP;
-            _datphongCT_ct.IDPHONG = datphongCT.IDPHONG;
-            _datphongCT_ct.NGAY = datphongCT.NGAY;
-            _datphongCT_ct.DONGIA = datphongCT.DONGIA;
-            _datphongCT_ct.SONGAYO = datphongCT.SONGAYO;
-            _datphongCT_ct.THANHTIEN = datphongCT.THANHTIEN;
-
+            tb_datphong_sanpham _datphong_SP = db.tb_datphong_sanpham.FirstOrDefault(x => x.IDDPSP == datphongSP.IDDPSP);
+            _datphong_SP.IDDP = datphongSP.IDDP;
+            _datphong_SP.IDDPCT = datphongSP.IDDPCT;
+            _datphong_SP.IDPHONG = datphongSP.IDPHONG;
+            _datphong_SP.IDSP = datphongSP.IDSP;
+            _datphong_SP.NGAY = datphongSP.NGAY;
+            _datphong_SP.SOLUONG = datphongSP.SOLUONG;
+            _datphong_SP.DONGIA = datphongSP.DONGIA;
+            _datphong_SP.THANHTIEN = datphongSP.THANHTIEN;
+            
             try
             {
                 db.SaveChanges();
@@ -59,10 +60,10 @@ namespace BussinessLogic
                 throw new Exception("Có lỗi trong quá trình xử lý dữ liệu");
             }
         }
-        public void delete(int IDdatphong)
+        public void delete(int idDatPhongSP)
         {
             //Delete table theo ma cong ty
-            tb_datphong_chitiet _datphong = db.tb_datphong_chitiet.Remove(getItem(IDdatphong));
+            tb_datphong_sanpham _datphongSP = db.tb_datphong_sanpham.Remove(getItem(idDatPhongSP));
 
             try
             {
@@ -75,11 +76,11 @@ namespace BussinessLogic
         }
         public void deleteAll(int idDatPhong)
         {
-            List<tb_datphong_chitiet> lstDPCT = db.tb_datphong_chitiet.Where(x => x.IDDP == idDatPhong).ToList();
+            List<tb_datphong_sanpham> lstSP = db.tb_datphong_sanpham.Where(x => x.IDDP == idDatPhong).ToList();
 
             try
             {
-                db.tb_datphong_chitiet.RemoveRange(lstDPCT);
+                db.tb_datphong_sanpham.RemoveRange(lstSP);
                 db.SaveChanges();
             }
             catch

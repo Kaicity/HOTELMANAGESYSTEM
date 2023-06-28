@@ -36,9 +36,9 @@ namespace DataLayer
         public virtual DbSet<tb_tang> tb_tang { get; set; }
         public virtual DbSet<tb_thietbi> tb_thietbi { get; set; }
         public virtual DbSet<tb_donvi> tb_donvi { get; set; }
+        public virtual DbSet<tb_param> tb_param { get; set; }
         public virtual DbSet<tb_datphong> tb_datphong { get; set; }
         public virtual DbSet<tb_datphong_chitiet> tb_datphong_chitiet { get; set; }
-        public virtual DbSet<tb_param> tb_param { get; set; }
         public virtual DbSet<tb_datphong_sanpham> tb_datphong_sanpham { get; set; }
     }
 }

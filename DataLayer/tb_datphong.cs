@@ -16,7 +16,6 @@ namespace DataLayer
     {
         public int ID { get; set; }
         public int IDKH { get; set; }
-        public Nullable<int> IDPHONG { get; set; }
         public Nullable<System.DateTime> NGAYDAT { get; set; }
         public Nullable<System.DateTime> NGAYTRA { get; set; }
         public Nullable<double> SOTIEN { get; set; }

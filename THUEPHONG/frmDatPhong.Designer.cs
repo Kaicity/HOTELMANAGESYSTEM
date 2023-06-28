@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnThem = new System.Windows.Forms.ToolStripButton();
             this.btnSua = new System.Windows.Forms.ToolStripButton();
@@ -47,7 +47,7 @@
             this.dateDiTuNgay = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.gcDanhSach = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gvDanhSach = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.DISABLED = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.NGAYDAT = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -86,6 +86,13 @@
             this.spDONGIA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.spTHANHTIEN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.calcEdit1 = new DevExpress.XtraEditors.CalcEdit();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tfGiaPhong = new System.Windows.Forms.TextBox();
+            this.tfSlPhong = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.tfGiaTienDPSP = new System.Windows.Forms.TextBox();
             this.tfSl_DPSP = new System.Windows.Forms.TextBox();
             this.tfTotal = new System.Windows.Forms.TextBox();
@@ -113,12 +120,6 @@
             this.IDTANG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TENTANG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PHONGDONGIA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tfGiaPhong = new System.Windows.Forms.TextBox();
-            this.tfSlPhong = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.tabPage.SuspendLayout();
             this.pageDanhSach.SuspendLayout();
@@ -127,7 +128,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDanhSach)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDanhSach)).BeginInit();
             this.pageChiTiet.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -138,6 +139,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSuDungSPDV)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.calcEdit1.Properties)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSLNguoi)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -246,7 +248,7 @@
             this.tabPage.Location = new System.Drawing.Point(0, 42);
             this.tabPage.Name = "tabPage";
             this.tabPage.SelectedIndex = 0;
-            this.tabPage.Size = new System.Drawing.Size(1259, 649);
+            this.tabPage.Size = new System.Drawing.Size(1259, 672);
             this.tabPage.TabIndex = 4;
             // 
             // pageDanhSach
@@ -255,7 +257,7 @@
             this.pageDanhSach.Location = new System.Drawing.Point(4, 23);
             this.pageDanhSach.Name = "pageDanhSach";
             this.pageDanhSach.Padding = new System.Windows.Forms.Padding(3);
-            this.pageDanhSach.Size = new System.Drawing.Size(1251, 625);
+            this.pageDanhSach.Size = new System.Drawing.Size(1251, 645);
             this.pageDanhSach.TabIndex = 1;
             this.pageDanhSach.Text = "Danh sách";
             this.pageDanhSach.UseVisualStyleBackColor = true;
@@ -278,17 +280,19 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gcDanhSach);
-            this.splitContainer1.Size = new System.Drawing.Size(1245, 619);
-            this.splitContainer1.SplitterDistance = 85;
+            this.splitContainer1.Size = new System.Drawing.Size(1245, 639);
+            this.splitContainer1.SplitterDistance = 87;
             this.splitContainer1.TabIndex = 0;
             // 
             // dateDiDenNgay
             // 
-            this.dateDiDenNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateDiDenNgay.CustomFormat = "dd-MM-yyyy";
+            this.dateDiDenNgay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateDiDenNgay.Location = new System.Drawing.Point(512, 33);
             this.dateDiDenNgay.Name = "dateDiDenNgay";
             this.dateDiDenNgay.Size = new System.Drawing.Size(177, 22);
             this.dateDiDenNgay.TabIndex = 3;
+            this.dateDiDenNgay.Value = new System.DateTime(2023, 6, 27, 0, 0, 0, 0);
             // 
             // label2
             // 
@@ -302,11 +306,13 @@
             // 
             // dateDiTuNgay
             // 
-            this.dateDiTuNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateDiTuNgay.CustomFormat = "dd-MM-yyyy";
+            this.dateDiTuNgay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateDiTuNgay.Location = new System.Drawing.Point(203, 34);
             this.dateDiTuNgay.Name = "dateDiTuNgay";
             this.dateDiTuNgay.Size = new System.Drawing.Size(188, 22);
             this.dateDiTuNgay.TabIndex = 1;
+            this.dateDiTuNgay.Value = new System.DateTime(2023, 6, 27, 0, 0, 0, 0);
             // 
             // label1
             // 
@@ -322,16 +328,16 @@
             // 
             this.gcDanhSach.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcDanhSach.Location = new System.Drawing.Point(0, 0);
-            this.gcDanhSach.MainView = this.gridView1;
+            this.gcDanhSach.MainView = this.gvDanhSach;
             this.gcDanhSach.Name = "gcDanhSach";
-            this.gcDanhSach.Size = new System.Drawing.Size(1245, 530);
+            this.gcDanhSach.Size = new System.Drawing.Size(1245, 548);
             this.gcDanhSach.TabIndex = 0;
             this.gcDanhSach.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gvDanhSach});
             // 
-            // gridView1
+            // gvDanhSach
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gvDanhSach.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.DISABLED,
             this.ID,
             this.NGAYDAT,
@@ -345,8 +351,9 @@
             this.IDKH,
             this.HOTEN,
             this.GHICHU});
-            this.gridView1.GridControl = this.gcDanhSach;
-            this.gridView1.Name = "gridView1";
+            this.gvDanhSach.GridControl = this.gcDanhSach;
+            this.gvDanhSach.Name = "gvDanhSach";
+            this.gvDanhSach.Click += new System.EventHandler(this.gvDanhSach_Click);
             // 
             // DISABLED
             // 
@@ -497,7 +504,7 @@
             this.pageChiTiet.Location = new System.Drawing.Point(4, 23);
             this.pageChiTiet.Name = "pageChiTiet";
             this.pageChiTiet.Padding = new System.Windows.Forms.Padding(3);
-            this.pageChiTiet.Size = new System.Drawing.Size(1251, 622);
+            this.pageChiTiet.Size = new System.Drawing.Size(1251, 645);
             this.pageChiTiet.TabIndex = 2;
             this.pageChiTiet.Text = "Chi tiết";
             this.pageChiTiet.UseVisualStyleBackColor = true;
@@ -518,7 +525,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1245, 616);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1245, 639);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
@@ -529,7 +536,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.Blue;
             this.groupBox2.Location = new System.Drawing.Point(1001, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(240, 608);
+            this.groupBox2.Size = new System.Drawing.Size(240, 631);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sản phẩm dịch vụ";
@@ -553,7 +560,7 @@
             this.gvSanPhamDV.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.gvSanPhamDV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gvSanPhamDV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvSanPhamDV.Size = new System.Drawing.Size(234, 584);
+            this.gvSanPhamDV.Size = new System.Drawing.Size(234, 607);
             this.gvSanPhamDV.TabIndex = 1;
             this.gvSanPhamDV.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvSanPhamDV_CellMouseDoubleClick);
             this.gvSanPhamDV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.gvSanPhamDV_RowPostPaint);
@@ -599,11 +606,11 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(357, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.14754F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.21312F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.84184F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.05272F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(637, 608);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.68254F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.79365F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.61905F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.06349F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(637, 631);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // groupBox4
@@ -612,9 +619,9 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox4.Location = new System.Drawing.Point(4, 132);
+            this.groupBox4.Location = new System.Drawing.Point(4, 128);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(629, 157);
+            this.groupBox4.Size = new System.Drawing.Size(629, 186);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Danh sách phòng đặt";
@@ -641,15 +648,16 @@
             this.gvPhongDat.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.gvPhongDat.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gvPhongDat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvPhongDat.Size = new System.Drawing.Size(623, 133);
+            this.gvPhongDat.Size = new System.Drawing.Size(623, 162);
             this.gvPhongDat.TabIndex = 1;
             this.gvPhongDat.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPhongDat_CellMouseDoubleClick);
+            this.gvPhongDat.Click += new System.EventHandler(this.gvPhongDat_Click);
             // 
             // dpIDPHONG
             // 
             this.dpIDPHONG.DataPropertyName = "IDPHONG";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dpIDPHONG.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpIDPHONG.DefaultCellStyle = dataGridViewCellStyle1;
             this.dpIDPHONG.FillWeight = 72.29894F;
             this.dpIDPHONG.HeaderText = "";
             this.dpIDPHONG.MinimumWidth = 40;
@@ -698,9 +706,9 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox3.Location = new System.Drawing.Point(4, 296);
+            this.groupBox3.Location = new System.Drawing.Point(4, 321);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(629, 161);
+            this.groupBox3.Size = new System.Drawing.Size(629, 166);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Danh sách Sản phẩm - Dịch vụ";
@@ -729,7 +737,7 @@
             this.gvSuDungSPDV.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gvSuDungSPDV.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.gvSuDungSPDV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvSuDungSPDV.Size = new System.Drawing.Size(623, 139);
+            this.gvSuDungSPDV.Size = new System.Drawing.Size(623, 144);
             this.gvSuDungSPDV.TabIndex = 1;
             this.gvSuDungSPDV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gvSuDungSPDV_CellFormatting);
             this.gvSuDungSPDV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.gvSuDungSPDV_CellValidating);
@@ -796,6 +804,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.calcEdit1);
             this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.tfGiaPhong);
@@ -809,12 +818,77 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.ForeColor = System.Drawing.Color.Red;
-            this.groupBox5.Location = new System.Drawing.Point(4, 464);
+            this.groupBox5.Location = new System.Drawing.Point(4, 494);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(629, 140);
+            this.groupBox5.Size = new System.Drawing.Size(629, 133);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "TỔNG THANH TOÁN";
+            // 
+            // calcEdit1
+            // 
+            this.calcEdit1.Location = new System.Drawing.Point(481, 34);
+            this.calcEdit1.Name = "calcEdit1";
+            this.calcEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.calcEdit1.Size = new System.Drawing.Size(128, 20);
+            this.calcEdit1.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(242, 65);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(75, 17);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "Thành tiền";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(25, 62);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(108, 17);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Số lượng Phòng";
+            // 
+            // tfGiaPhong
+            // 
+            this.tfGiaPhong.Enabled = false;
+            this.tfGiaPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tfGiaPhong.Location = new System.Drawing.Point(323, 62);
+            this.tfGiaPhong.Name = "tfGiaPhong";
+            this.tfGiaPhong.Size = new System.Drawing.Size(125, 25);
+            this.tfGiaPhong.TabIndex = 7;
+            // 
+            // tfSlPhong
+            // 
+            this.tfSlPhong.Enabled = false;
+            this.tfSlPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tfSlPhong.Location = new System.Drawing.Point(160, 59);
+            this.tfSlPhong.Name = "tfSlPhong";
+            this.tfSlPhong.Size = new System.Drawing.Size(60, 25);
+            this.tfSlPhong.TabIndex = 6;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(242, 34);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 17);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Thành tiền";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 31);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(102, 17);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Số lượng SPDV";
             // 
             // tfGiaTienDPSP
             // 
@@ -876,7 +950,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(629, 121);
+            this.panel1.Size = new System.Drawing.Size(629, 117);
             this.panel1.TabIndex = 3;
             // 
             // checkTheoDoan
@@ -954,11 +1028,13 @@
             // 
             // dateNgayTra
             // 
-            this.dateNgayTra.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateNgayTra.CustomFormat = "dd-MM-yyyy";
+            this.dateNgayTra.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateNgayTra.Location = new System.Drawing.Point(387, 38);
             this.dateNgayTra.Name = "dateNgayTra";
             this.dateNgayTra.Size = new System.Drawing.Size(213, 22);
             this.dateNgayTra.TabIndex = 7;
+            this.dateNgayTra.Value = new System.DateTime(2023, 6, 27, 0, 0, 0, 0);
             // 
             // label4
             // 
@@ -972,11 +1048,13 @@
             // 
             // dateNgayDat
             // 
-            this.dateNgayDat.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateNgayDat.CustomFormat = "dd-MM-yyyy";
+            this.dateNgayDat.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateNgayDat.Location = new System.Drawing.Point(99, 37);
             this.dateNgayDat.Name = "dateNgayDat";
             this.dateNgayDat.Size = new System.Drawing.Size(208, 22);
             this.dateNgayDat.TabIndex = 5;
+            this.dateNgayDat.Value = new System.DateTime(2023, 6, 27, 0, 0, 0, 0);
             // 
             // label5
             // 
@@ -1024,7 +1102,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Blue;
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(346, 608);
+            this.groupBox1.Size = new System.Drawing.Size(346, 631);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh sách phòng trống";
@@ -1050,7 +1128,7 @@
             this.gvPhong.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.gvPhong.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.gvPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvPhong.Size = new System.Drawing.Size(340, 584);
+            this.gvPhong.Size = new System.Drawing.Size(340, 607);
             this.gvPhong.TabIndex = 0;
             this.gvPhong.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPhong_CellMouseDoubleClick);
             this.gvPhong.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.gvPhong_RowPostPaint);
@@ -1058,8 +1136,8 @@
             // IDPHONG
             // 
             this.IDPHONG.DataPropertyName = "IDPHONG";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IDPHONG.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IDPHONG.DefaultCellStyle = dataGridViewCellStyle2;
             this.IDPHONG.FillWeight = 72.29894F;
             this.IDPHONG.HeaderText = "";
             this.IDPHONG.MinimumWidth = 40;
@@ -1100,67 +1178,11 @@
             this.PHONGDONGIA.Name = "PHONGDONGIA";
             this.PHONGDONGIA.ReadOnly = true;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(25, 31);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(102, 17);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Số lượng SPDV";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(242, 34);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(75, 17);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Thành tiền";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(242, 65);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(75, 17);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "Thành tiền";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(25, 62);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(108, 17);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Số lượng Phòng";
-            // 
-            // tfGiaPhong
-            // 
-            this.tfGiaPhong.Enabled = false;
-            this.tfGiaPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tfGiaPhong.Location = new System.Drawing.Point(323, 62);
-            this.tfGiaPhong.Name = "tfGiaPhong";
-            this.tfGiaPhong.Size = new System.Drawing.Size(125, 25);
-            this.tfGiaPhong.TabIndex = 7;
-            // 
-            // tfSlPhong
-            // 
-            this.tfSlPhong.Enabled = false;
-            this.tfSlPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tfSlPhong.Location = new System.Drawing.Point(160, 59);
-            this.tfSlPhong.Name = "tfSlPhong";
-            this.tfSlPhong.Size = new System.Drawing.Size(60, 25);
-            this.tfSlPhong.TabIndex = 6;
-            // 
             // frmDatPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1259, 691);
+            this.ClientSize = new System.Drawing.Size(1259, 714);
             this.Controls.Add(this.tabPage);
             this.Controls.Add(this.toolStrip1);
             this.Name = "frmDatPhong";
@@ -1178,7 +1200,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcDanhSach)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDanhSach)).EndInit();
             this.pageChiTiet.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1190,6 +1212,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvSuDungSPDV)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.calcEdit1.Properties)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSLNguoi)).EndInit();
@@ -1219,7 +1242,7 @@
         private System.Windows.Forms.DateTimePicker dateDiDenNgay;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraGrid.GridControl gcDanhSach;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvDanhSach;
         private DevExpress.XtraGrid.Columns.GridColumn DISABLED;
         private DevExpress.XtraGrid.Columns.GridColumn ID;
         private DevExpress.XtraGrid.Columns.GridColumn NGAYDAT;
@@ -1291,5 +1314,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tfGiaPhong;
         private System.Windows.Forms.TextBox tfSlPhong;
+        private DevExpress.XtraEditors.CalcEdit calcEdit1;
     }
 }

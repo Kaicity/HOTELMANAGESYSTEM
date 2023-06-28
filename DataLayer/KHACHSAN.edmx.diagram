@@ -21,10 +21,10 @@
         <AssociationConnector Association="KHACHSAN.FK_tb_phong_thietbi_tb_thietbi" />
         <EntityTypeShape EntityType="KHACHSAN.tb_donvi" Width="1.5" PointX="2.875" PointY="0.5" />
         <AssociationConnector Association="KHACHSAN.FK_tb_donvi_tb_congty" />
-        <EntityTypeShape EntityType="KHACHSAN.tb_datphong" Width="1.75" PointX="1" PointY="6.625" />
-        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_chitiet" Width="2.125" PointX="0.5" PointY="12.125" />
         <EntityTypeShape EntityType="KHACHSAN.tb_param" Width="1.5" PointX="3.5" PointY="8" />
-        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_sanpham" Width="1.875" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong" Width="1.75" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_chitiet" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KHACHSAN.tb_datphong_sanpham" Width="1.5" PointX="10.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
