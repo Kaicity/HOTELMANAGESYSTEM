@@ -14,11 +14,20 @@ namespace DataLayer
     
     public partial class tb_khachhang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tb_khachhang()
+        {
+            this.tb_datphong = new HashSet<tb_datphong>();
+        }
+    
         public int IDKH { get; set; }
         public string HOTEN { get; set; }
         public string CCCD { get; set; }
         public string DIENTHOAI { get; set; }
         public string EMAIL { get; set; }
         public string DIACHI { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_datphong> tb_datphong { get; set; }
     }
 }

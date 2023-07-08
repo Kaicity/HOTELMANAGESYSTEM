@@ -14,9 +14,18 @@ namespace DataLayer
     
     public partial class tb_param
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tb_param()
+        {
+            this.tb_datphong = new HashSet<tb_datphong>();
+        }
+    
         public string MACTY { get; set; }
         public string MADVI { get; set; }
         public string TENCTY { get; set; }
         public string TENDVI { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_datphong> tb_datphong { get; set; }
     }
 }

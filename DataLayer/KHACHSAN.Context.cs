@@ -25,20 +25,20 @@ namespace DataLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tb_khachhang> tb_khachhang { get; set; }
-        public virtual DbSet<tb_sanpham> tb_sanpham { get; set; }
-        public virtual DbSet<tb_user> tb_user { get; set; }
-        public virtual DbSet<tb_func> tb_func { get; set; }
         public virtual DbSet<tb_congty> tb_congty { get; set; }
+        public virtual DbSet<tb_datphong> tb_datphong { get; set; }
+        public virtual DbSet<tb_datphong_chitiet> tb_datphong_chitiet { get; set; }
+        public virtual DbSet<tb_datphong_sanpham> tb_datphong_sanpham { get; set; }
+        public virtual DbSet<tb_donvi> tb_donvi { get; set; }
+        public virtual DbSet<tb_func> tb_func { get; set; }
+        public virtual DbSet<tb_khachhang> tb_khachhang { get; set; }
         public virtual DbSet<tb_loaiphong> tb_loaiphong { get; set; }
+        public virtual DbSet<tb_param> tb_param { get; set; }
         public virtual DbSet<tb_phong> tb_phong { get; set; }
         public virtual DbSet<tb_phong_thietbi> tb_phong_thietbi { get; set; }
         public virtual DbSet<tb_tang> tb_tang { get; set; }
         public virtual DbSet<tb_thietbi> tb_thietbi { get; set; }
-        public virtual DbSet<tb_donvi> tb_donvi { get; set; }
-        public virtual DbSet<tb_param> tb_param { get; set; }
-        public virtual DbSet<tb_datphong> tb_datphong { get; set; }
-        public virtual DbSet<tb_datphong_chitiet> tb_datphong_chitiet { get; set; }
-        public virtual DbSet<tb_datphong_sanpham> tb_datphong_sanpham { get; set; }
+        public virtual DbSet<tb_user> tb_user { get; set; }
+        public virtual DbSet<tb_sanpham> tb_sanpham { get; set; }
     }
 }

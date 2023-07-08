@@ -18,7 +18,7 @@ namespace BussinessLogic
         }
         public List<tb_sanpham> getAll()
         {
-            return db.tb_sanpham.ToList();
+            return db.tb_sanpham.ToList();   
         }
 
         public tb_sanpham getItem(int IDsp)

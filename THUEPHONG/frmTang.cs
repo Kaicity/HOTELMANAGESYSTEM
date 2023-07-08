@@ -102,7 +102,7 @@ namespace THUEPHONG
         }
         public bool showLoadPageMain()
         {
-           this.Close();
+            this.Close();
             return true;
         }
 

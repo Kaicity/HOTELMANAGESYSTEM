@@ -8,22 +8,20 @@ namespace BussinessLogic
 {
     public  class OBJ_DPSP
     {
-        public int IDSP { get; set; }
+        public int? IDSP { get; set; }
 
         public string TENSP { get; set; }
 
-        public int SOLUONG { get; set; }
+        public int? SOLUONG { get; set; }
 
-        public float DONGIA { get; set; }
+        public double? DONGIA { get; set; }
 
-        public float THANHTIEN { get; set; }
+        public double? THANHTIEN { get; set; }
 
-        public int IDPHONG { get; set; }
+        public int? IDPHONG { get; set; }
 
         public string TENPHONG { get; set; }
 
-        //public int IDDP {get ; set; }
-
-
+        public int IDDP {get ; set; }
     }
 }

@@ -25,6 +25,37 @@ namespace BussinessLogic
         {
             return db.tb_datphong_sanpham.ToList();
         }
+
+        public List<OBJ_DPSP> getAllDataTable(int iddp) 
+        { 
+            var listDPSP = db.tb_datphong_sanpham.Where(x => x.IDDP == iddp).ToList();
+            List<OBJ_DPSP> list_objSPDV = new List<OBJ_DPSP>();
+            OBJ_DPSP dpsp;
+            foreach(var item in listDPSP)
+            {
+               if(item.IDSP != null) 
+               {
+                    dpsp = new OBJ_DPSP();
+                    dpsp.IDDP = item.IDDP;
+                    dpsp.IDSP = item.IDSP;
+
+                    //Khoi tao lai Enties de thao tac voi du lieu, Entity Closes !
+                    db = Entities.CreateEntities();
+                    var sp = db.tb_sanpham.FirstOrDefault(x => x.IDSP == item.IDSP);
+                    dpsp.TENSP = sp.TENSP;
+                    dpsp.SOLUONG = item.SOLUONG;
+                    dpsp.DONGIA = item.DONGIA;
+                    dpsp.THANHTIEN = item.THANHTIEN;
+                    dpsp.IDPHONG = item.IDPHONG;
+
+                    var phong = db.tb_phong.FirstOrDefault(x => x.IDPHONG == item.IDPHONG);
+                    dpsp.TENPHONG = phong.TENPHONG;
+
+                    list_objSPDV.Add(dpsp);
+               }
+            }
+            return list_objSPDV;
+        }
         public void add(tb_datphong_sanpham datphongSP)
         {
             try
@@ -60,7 +91,7 @@ namespace BussinessLogic
                 throw new Exception("Có lỗi trong quá trình xử lý dữ liệu");
             }
         }
-        public void delete(int idDatPhongSP)
+        /*public void delete(int idDatPhongSP)
         {
             //Delete table theo ma cong ty
             tb_datphong_sanpham _datphongSP = db.tb_datphong_sanpham.Remove(getItem(idDatPhongSP));
@@ -73,7 +104,7 @@ namespace BussinessLogic
             {
                 throw new Exception("Có lỗi trong quá trình xử lý dữ liệu");
             }
-        }
+        }*/
         public void deleteAll(int idDatPhong)
         {
             List<tb_datphong_sanpham> lstSP = db.tb_datphong_sanpham.Where(x => x.IDDP == idDatPhong).ToList();

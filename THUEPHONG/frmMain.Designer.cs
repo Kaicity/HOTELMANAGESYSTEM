@@ -272,10 +272,8 @@
             // 
             this.imageList3.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList3.ImageStream")));
             this.imageList3.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList3.Images.SetKeyName(0, "bed (1).png");
-            this.imageList3.Images.SetKeyName(1, "bed_person.png");
-            this.imageList3.Images.SetKeyName(2, "meeting.png");
-            this.imageList3.Images.SetKeyName(3, "reception.png");
+            this.imageList3.Images.SetKeyName(0, "room");
+            this.imageList3.Images.SetKeyName(1, "room_person");
             // 
             // barManager2
             // 

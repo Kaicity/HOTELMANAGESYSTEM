@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DevExpress.Xpo.DB.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,6 +33,11 @@ namespace THUEPHONG
             }
         }
 
+        public void dongKetnoi()
+        {
+            con.Close();
+        }
+
         public static DataTable layDuLieu(string query)
         {
             taoKetNoi();
@@ -48,8 +54,67 @@ namespace THUEPHONG
             {
                 throw new Exception("Lỗi kết nối cơ sở dữ liệu");
             }
-            finally { con.Close(); }
+            finally { con.Dispose(); }
             
+        }
+
+        public static void XoaDuLieu(string query)
+        {
+            taoKetNoi();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Lỗi kết nối cơ sở dữ liệu");
+            }
+            finally
+            {
+                con.Dispose();
+            }
+        }
+
+        public static int demDuLieu(string query)
+        {
+            taoKetNoi();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                int count = (int)cmd.ExecuteScalar();
+                return count;
+            }
+            catch
+            {
+                throw new Exception("Lỗi kết nối cơ sở dữ liệu");
+            }
+            finally
+            {
+                con.Dispose();
+            }
+        }
+
+        public static DataTable getAllDanhSachDatPhong(int idKH) 
+        {
+            taoKetNoi();
+
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDataAdapter dap = new SqlDataAdapter();
+                dap.SelectCommand = new SqlCommand("SELECT dp.DISABLED, dp.ID, dp.NGAYDAT, dp.NGAYTRA, dp.SOTIEN, dp.SONGUOIO, dp.STATUS, dp.THEODOAN, kh.HOTEN, dp.GHICHU" +
+                    "FROM tb_datphong dp, tb_khachhang kh WHERE dp.IDKH = kh.IDKH AND dp.IDKH = " + idKH, con);
+                dap.Fill(dt);
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Lỗi kết nối cơ sở dữ liệu");
+            }
+            finally { con.Dispose(); }
         }
 
         public static DateTime getFirstDayInMonth(int year, int month)

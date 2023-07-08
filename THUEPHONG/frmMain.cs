@@ -1,4 +1,5 @@
 ﻿using BussinessLogic;
+using DataLayer;
 using DevExpress.Emf;
 using DevExpress.Utils;
 using DevExpress.Utils.Drawing;
@@ -42,10 +43,10 @@ namespace THUEPHONG
             showRoom();
         }
 
-        void reloadChangeForm()
+        public void reloadChangeForm()
         {
             this.Controls.Clear();
-            this.InitializeComponent();
+            InitializeComponent();
             //----------------Load and Reset Data
             f = new FUNC();
             t = new TANG();
@@ -90,7 +91,7 @@ namespace THUEPHONG
         }
 
         //Showlist danh sach cac phong trong khach san
-        void showRoom()
+        public void showRoom()
         {
             EventHandler MouseEnterd;
 
@@ -125,14 +126,15 @@ namespace THUEPHONG
                         gc_item.ImageOptions.Image = imageList3.Images[1];
                     }
 
-                    if (p.IDTANG == 1)
+                   //Le tan va Tang phong hop 
+                   /* if (p.IDTANG == 1)
                     {
                         gc_item.ImageOptions.Image = imageList3.Images[3];
                     }
                     if (p.IDTANG == 2)
                     {
                         gc_item.ImageOptions.Image = imageList3.Images[2];
-                    }
+                    }*/
 
                     galleryItem.Items.Add(gc_item);
 

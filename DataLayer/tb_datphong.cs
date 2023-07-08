@@ -14,6 +14,13 @@ namespace DataLayer
     
     public partial class tb_datphong
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tb_datphong()
+        {
+            this.tb_datphong_chitiet = new HashSet<tb_datphong_chitiet>();
+            this.tb_datphong_sanpham = new HashSet<tb_datphong_sanpham>();
+        }
+    
         public int ID { get; set; }
         public int IDKH { get; set; }
         public Nullable<System.DateTime> NGAYDAT { get; set; }
@@ -30,5 +37,12 @@ namespace DataLayer
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
         public Nullable<System.DateTime> UPDATE_DATE { get; set; }
         public Nullable<int> UPDATE_BY { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_datphong_chitiet> tb_datphong_chitiet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_datphong_sanpham> tb_datphong_sanpham { get; set; }
+        public virtual tb_khachhang tb_khachhang { get; set; }
+        public virtual tb_param tb_param { get; set; }
     }
 }

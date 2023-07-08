@@ -61,6 +61,7 @@
     <Compile Include="KHACHHANG.cs" />
     <Compile Include="LOAIPHONG.cs" />
     <Compile Include="OBJ_DATPHONG.cs" />
+    <Compile Include="OBJ_DATPHONGCT.cs" />
     <Compile Include="OBJ_DPSP.cs" />
     <Compile Include="PHONG.cs" />
     <Compile Include="PHONGTHIETBI.cs" />
