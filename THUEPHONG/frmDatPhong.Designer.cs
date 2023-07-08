@@ -172,7 +172,6 @@
             this.btnThem.Size = new System.Drawing.Size(41, 39);
             this.btnThem.Text = "Thêm";
             this.btnThem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
@@ -192,7 +191,6 @@
             this.btnXoa.Size = new System.Drawing.Size(31, 39);
             this.btnXoa.Text = "Xóa";
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnLuu
             // 
@@ -202,7 +200,6 @@
             this.btnLuu.Size = new System.Drawing.Size(31, 39);
             this.btnLuu.Text = "Lưu";
             this.btnLuu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // btnBoqua
             // 
@@ -212,7 +209,6 @@
             this.btnBoqua.Size = new System.Drawing.Size(48, 39);
             this.btnBoqua.Text = "Bỏ qua";
             this.btnBoqua.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnBoqua.Click += new System.EventHandler(this.btnBoqua_Click);
             // 
             // btnIn
             // 

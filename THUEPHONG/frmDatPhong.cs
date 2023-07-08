@@ -219,7 +219,6 @@ namespace THUEPHONG
                                 dpsp.IDDP = _dpObj.ID;
                                 dpsp.IDPHONG = dpct.IDPHONG;
                                 _datphongsp.add(dpsp);
-                                break;
                             }
                         }
                     }
