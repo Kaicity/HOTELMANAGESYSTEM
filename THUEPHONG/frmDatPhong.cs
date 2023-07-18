@@ -343,9 +343,8 @@ namespace THUEPHONG
                
                 myFunction.XoaDuLieu("DELETE FROM tb_datphong_chitiet WHERE IDDP = '"+ _idDatPhong + "'");
 
-
-
                 _idDatPhong = _dpObj.ID;
+
                 //Reset data CT-SP them lai ban dau 
 
                 //-----------------------------------
@@ -383,6 +382,17 @@ namespace THUEPHONG
                         }
                     }               
 
+                }
+
+                //Cap nhat trang thay don dat da thanh toan => phong trong
+                var _phongDat = _datphongct.getAllByDatPhong(_idDatPhong);
+
+                if (_dpObj.STATUS == true)
+                {
+                    foreach (var item in _phongDat)
+                    {
+                        _phong.updateStatus((int)item.IDPHONG, false);
+                    }
                 }
             }
         }
