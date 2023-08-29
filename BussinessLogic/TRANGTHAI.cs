@@ -43,5 +43,29 @@ namespace BussinessLogic
             list.AddRange(item);
             return list;
         }
+
+       /* public static List<TRANGTHAI> GetValueChange(string valueT)
+        {
+            List<TRANGTHAI> list = new List<TRANGTHAI>();
+            if (valueT == "true")
+            {
+                TRANGTHAI[] item = new TRANGTHAI[2]
+                {
+                     new TRANGTHAI(true, "Đã hoàn tất"),
+                     new TRANGTHAI(true, "Đã hoàn tất")
+                };
+                list.AddRange(item);
+            }
+            if (valueT == "false")
+            {
+                TRANGTHAI[] item = new TRANGTHAI[2]
+                {
+                     new TRANGTHAI(false, "Chưa hoàn tất"),
+                     new TRANGTHAI(true, "Đã hoàn tất")
+                };
+                list.AddRange(item);
+            }
+            return list;
+        }*/
     }
 }

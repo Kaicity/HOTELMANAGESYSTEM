@@ -21,7 +21,7 @@ namespace DataLayer
         }
     
         public int IDDPCT { get; set; }
-        public Nullable<int> IDDP { get; set; }
+        public int IDDP { get; set; }
         public Nullable<int> IDPHONG { get; set; }
         public Nullable<int> SONGAYO { get; set; }
         public Nullable<double> DONGIA { get; set; }

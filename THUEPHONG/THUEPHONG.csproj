@@ -51,6 +51,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.BonusSkins.v22.2" />
     <Reference Include="DevExpress.Data.Desktop.v22.2" />
     <Reference Include="DevExpress.Data.v22.2" />
@@ -75,9 +79,30 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1586.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1586.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1586.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1586.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1586.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,6 +113,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormReport\frmReportDatPhongTheoDoanCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport\frmReportDatPhongTheoDoanCT.Designer.cs">
+      <DependentUpon>frmReportDatPhongTheoDoanCT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReport\frmReportCongTy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport\frmReportCongTy.Designer.cs">
+      <DependentUpon>frmReportCongTy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReport\frmReportDatPhongTheoDoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport\frmReportDatPhongTheoDoan.Designer.cs">
+      <DependentUpon>frmReportDatPhongTheoDoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChuyenPhong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChuyenPhong.Designer.cs">
+      <DependentUpon>frmChuyenPhong.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCongTy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +148,12 @@
     </Compile>
     <Compile Include="frmDatPhong.Designer.cs">
       <DependentUpon>frmDatPhong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDatPhongDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDatPhongDon.Designer.cs">
+      <DependentUpon>frmDatPhongDon.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDonVi.cs">
       <SubType>Form</SubType>
@@ -166,14 +221,38 @@
     <Compile Include="frmThietBiTrongPhong.Designer.cs">
       <DependentUpon>frmThietBiTrongPhong.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmXemThongTinPhongDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXemThongTinPhongDon.Designer.cs">
+      <DependentUpon>frmXemThongTinPhongDon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HOTELDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HOTELDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="myFunction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="FormReport\frmReportDatPhongTheoDoanCT.resx">
+      <DependentUpon>frmReportDatPhongTheoDoanCT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReport\frmReportDatPhongTheoDoan.resx">
+      <DependentUpon>frmReportDatPhongTheoDoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChuyenPhong.resx">
+      <DependentUpon>frmChuyenPhong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCongTy.resx">
       <DependentUpon>frmCongTy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDatPhong.resx">
       <DependentUpon>frmDatPhong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDatPhongDon.resx">
+      <DependentUpon>frmDatPhongDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDonVi.resx">
       <DependentUpon>frmDonVi.cs</DependentUpon>
@@ -196,6 +275,9 @@
     <EmbeddedResource Include="frmPhong.resx">
       <DependentUpon>frmPhong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReport\frmReportCongTy.resx">
+      <DependentUpon>frmReportCongTy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSanPham.resx">
       <DependentUpon>frmSanPham.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,14 +290,42 @@
     <EmbeddedResource Include="frmThietBiTrongPhong.resx">
       <DependentUpon>frmThietBiTrongPhong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmXemThongTinPhongDon.resx">
+      <DependentUpon>frmXemThongTinPhongDon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportModel\ReportCongTy.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportModel\ReportDatPhongTheoDoan.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportModel\ReportDatPhongTheoDoanChiTiet.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="HOTELDataSet1.xsc">
+      <DependentUpon>HOTELDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="HOTELDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HOTELDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="HOTELDataSet1.xss">
+      <DependentUpon>HOTELDataSet1.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BussinessLogic.OBJ_DATPHONG.datasource" />
+    <None Include="Properties\DataSources\DataLayer.tb_congty.datasource" />
+    <None Include="Properties\DataSources\DataLayer.tb_datphong.datasource" />
+    <None Include="Properties\DataSources\DataLayer.tb_datphong_chitiet.datasource" />
+    <None Include="Properties\DataSources\DataLayer.tb_datphong_sanpham.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -294,6 +404,22 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-spinning-circle.gif" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

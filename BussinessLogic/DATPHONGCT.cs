@@ -23,38 +23,42 @@ namespace BussinessLogic
         {
             return db.tb_datphong_chitiet.ToList();
         }
-
+        public tb_datphong_chitiet getItemByPhong(int idPhong)
+        {
+            return db.tb_datphong_chitiet.OrderByDescending(x => x.NGAY).FirstOrDefault(y => y.IDPHONG == idPhong);
+        }
         public List<tb_datphong_chitiet> getAllByDatPhong(int iddp) 
         {
             return db.tb_datphong_chitiet.Where(x => x.IDDP == iddp).ToList();
         }
-        /*public List<OBJ_DATPHONGCT> getAllDataToTable(int iddp)
+
+        //Query kiem thu
+        /*public List<OBJ_PHONG_THEODOAN> getPhong_TheoDoan()
         {
-            var list_table_DatPhongCT = db.tb_datphong_chitiet.Where(x => x.IDDP == iddp).ToList();
-            List<OBJ_DATPHONGCT> listDPCT = new List<OBJ_DATPHONGCT>();
-            OBJ_DATPHONGCT dpct;
+            var query = db.tb_datphong_chitiet
+                .Join(db.tb_datphong, a => a.IDDP, b => b.ID, (a, b) => new { dpct = a, dp = b })
+                .Where(x => x.dpct.IDDP == x.dp.ID)
+                .Select(x => new
+                {
+                    x.dpct.IDPHONG,
+                    x.dp.THEODOAN
+                }).ToList();
+            var list = query.ToList();
 
-            foreach (var item in list_table_DatPhongCT)
+            List<OBJ_PHONG_THEODOAN> listPTD = new List<OBJ_PHONG_THEODOAN>();
+            OBJ_PHONG_THEODOAN objPhongTheoDoan;
+            foreach(var item in list)
             {
-                dpct = new OBJ_DATPHONGCT();
-                dpct.IDPHONG = item.IDPHONG;
+                objPhongTheoDoan = new OBJ_PHONG_THEODOAN();
+                objPhongTheoDoan.IDPHONG = item.IDPHONG;
+                objPhongTheoDoan.THEODOAN = item.THEODOAN;
 
-                //Khoi tao lai Entity de thao tac, khong khoi tao se bi loi ,close Entities 
-                db = Entities.CreateEntities();
-                var _phong = db.tb_phong.FirstOrDefault(x => x.IDPHONG == item.IDPHONG);
-                dpct.TENPHONG = _phong.TENPHONG;
-
-                TANG tang = new TANG();
-                var _tang = tang.getItem(_phong.IDTANG);
-                dpct.IDTANG = _tang.IDTANG;
-                dpct.TENTANG = _tang.TENTANG;
-                dpct.DONGIA = item.DONGIA;
-
-                listDPCT.Add(dpct);
+                listPTD.Add(objPhongTheoDoan);
             }
-            return listDPCT;
-        }
-        */
+
+            return listPTD;
+        }*/
+
 
         public tb_datphong_chitiet add(tb_datphong_chitiet datphongCT)
         {

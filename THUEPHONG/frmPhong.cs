@@ -234,8 +234,10 @@ namespace THUEPHONG
             _IDPhong = Convert.ToInt16(gvDanhSach.GetFocusedRowCellValue("IDPHONG").ToString());
             tfTen.Text = gvDanhSach.GetFocusedRowCellValue("TENPHONG").ToString();
             checkStatus.Checked = Convert.ToBoolean(gvDanhSach.GetFocusedRowCellValue("TRANGTHAI").ToString());
-            cbLoaiPhong.Text = gvDanhSach.GetFocusedRowCellValue("IDLOAIPHONG").ToString();
-            cbTang.Text = gvDanhSach.GetFocusedRowCellValue("IDTANG").ToString();
+            var itemLoaiPhong = _loaiphong.getItem(int.Parse(gvDanhSach.GetFocusedRowCellValue("IDLOAIPHONG").ToString()));
+            var itemtang = _tang.getItem(int.Parse(gvDanhSach.GetFocusedRowCellValue("IDTANG").ToString()));
+            cbLoaiPhong.Text = itemLoaiPhong.TENLOAIPHONG;
+            cbTang.Text = itemtang.TENTANG;
 
             
             if(gvDanhSach.GetFocusedRowCellValue("IMAGE") != null)

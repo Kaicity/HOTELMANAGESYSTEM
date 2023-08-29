@@ -11,8 +11,7 @@ namespace DataLayer
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class tb_datphong_sanpham
     {
         public int IDDPSP { get; set; }
@@ -28,7 +27,6 @@ namespace DataLayer
         public virtual tb_datphong tb_datphong { get; set; }
         public virtual tb_datphong_chitiet tb_datphong_chitiet { get; set; }
         public virtual tb_phong tb_phong { get; set; }
-        [NotMapped]
         public virtual tb_sanpham tb_sanpham { get; set; }
     }
 }

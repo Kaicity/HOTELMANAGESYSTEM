@@ -1,5 +1,6 @@
 ﻿using BussinessLogic;
 using DataLayer;
+using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Emf;
 using DevExpress.Utils;
 using DevExpress.Utils.Drawing;
@@ -26,8 +27,7 @@ namespace THUEPHONG
         FUNC f;
         TANG t;
         PHONG phg;
-        GalleryItem items = null;
-
+        public GalleryItem items = null;
 
         public FrmMainFull()
         {
@@ -60,7 +60,7 @@ namespace THUEPHONG
         {
             int i = 0;
             var isParent = f.getParent();
-            navBarMain.Appearance.Item.Font = new Font("Segoe UI", 9);
+            navBarMain.Appearance.Item.Font = new Font("Segoe UI", 11);
 
             foreach (var pr in isParent)
             {
@@ -94,13 +94,13 @@ namespace THUEPHONG
         public void showRoom()
         {
             EventHandler MouseEnterd;
-
+            phg = new PHONG();
             var isTang = t.getAll();
             gControl.Gallery.ItemImageLayout = ImageLayoutMode.ZoomInside;
             gControl.Gallery.ImageSize = new Size(64, 64);
             gControl.Gallery.ShowItemText = true;
-            gControl.Gallery.Appearance.GroupCaption.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-            gControl.Gallery.Appearance.ItemCaptionAppearance.Normal.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            gControl.Gallery.Appearance.GroupCaption.Font = new Font("Arial", 10, FontStyle.Bold);
+            gControl.Gallery.Appearance.ItemCaptionAppearance.Normal.Font = new Font("Arial", 10, FontStyle.Regular);
             gControl.Gallery.ShowGroupCaption = true;
 
             foreach (var t in isTang)
@@ -112,6 +112,7 @@ namespace THUEPHONG
 
                 //Trong 1 tang se chua danh sach cac phong add vao group
                 var isPhong = phg.getByTang(t.IDTANG);
+
                 foreach (var p in isPhong)
                 {
                     var gc_item = new GalleryItem();
@@ -184,7 +185,9 @@ namespace THUEPHONG
                         if (frTang.showLoadPageMain())
                         {
                             //load tang
-                            reloadChangeForm();
+                            //reloadChangeForm();
+                            this.gControl.Gallery.Groups.Clear();
+                            showRoom();
                         }
                         break;
                     }
@@ -195,8 +198,10 @@ namespace THUEPHONG
 
                         if (frPhong.showLoadPageMain())
                         {
-                            reloadChangeForm();
+                            //reloadChangeForm();
                             //load Room
+                            this.gControl.Gallery.Groups.Clear();
+                            showRoom();
                         }
                         break;
                     }
@@ -259,16 +264,84 @@ namespace THUEPHONG
             if (hitInfo.InGalleryItem || hitInfo.HitTest == RibbonHitTest.GalleryImage)
             {
                 items = hitInfo.GalleryItem;
-            }
+            } 
         }
 
         //Testing dat phong ID 
         private void btnDatphong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            var gc_items = new GalleryItem();
-            string id = items.Value.ToString();
+            PHONG png = new PHONG();
+            var phong = png.getItem(int.Parse(items.Value.ToString()));
+            //Dat Phong Khach le
+            if(phong.TRANGTHAI == true)
+            {
+                MessageBox.Show("Phòng đã được đặt. Vui lòng chọn phòng khác", "Thông báo", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+            frmDatPhongDon frmdpd = new frmDatPhongDon();
+            frmdpd._idPhong = int.Parse(items.Value.ToString());
+            frmdpd._them = true;
+            frmdpd.ShowDialog();
+        }
 
-            MessageBox.Show("Room ID: " + id);
+        private void btnSanPhamThanhToan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            PHONG png = new PHONG();
+            var phong = png.getItem(int.Parse(items.Value.ToString()));
+            //Dat Phong Khach le
+            if (phong.TRANGTHAI == false)
+            {
+                MessageBox.Show("Phòng chưa đặt. Vui lòng đặt phòng trước khi cập nhật sản phẩm & dịch vụ", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            frmDatPhongDon frmdpd = new frmDatPhongDon();
+            frmdpd._idPhong = int.Parse(items.Value.ToString());
+            frmdpd.showHideControls(false);
+            frmdpd._them = false;
+            frmdpd.ShowDialog();
+        }
+
+        private void btnThanhToan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+           /* PHONG png = new PHONG();
+            var phong = png.getItem(int.Parse(items.Value.ToString()));
+            //Dat Phong Khach le
+            if (phong.TRANGTHAI == true)
+            {
+                MessageBox.Show("Phòng hiện tại không còn trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            frmDatPhongDon frmdpd = new frmDatPhongDon();
+            frmdpd._idPhong = int.Parse(items.Value.ToString());
+            frmdpd.showHideControls(false);
+            frmdpd._them = true;
+            frmdpd.ShowDialog();*/
+        }
+
+        private void btnChuyenPhong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+           /* PHONG png = new PHONG();
+            var phong = png.getItem(int.Parse(items.Value.ToString()));
+            //Dat Phong Khach le
+            if (phong.TRANGTHAI == true)
+            {
+                MessageBox.Show("Phòng hiện tại không còn trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            frmDatPhongDon frmdpd = new frmDatPhongDon();
+            frmdpd._idPhong = int.Parse(items.Value.ToString());
+            frmdpd.showHideControls(false);
+            frmdpd._them = true;
+            frmdpd.ShowDialog();*/
+        }
+
+        private void btnXemthongTinphong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            frmXemThongTinPhongDon frmXemTT = new frmXemThongTinPhongDon();
+            frmXemTT._idPhong = int.Parse(items.Value.ToString());
+            frmXemTT.ShowDialog();
         }
     }
 }

@@ -19,6 +19,8 @@ namespace THUEPHONG
         bool _them;
         int _IDKH = 0;
         frmDatPhong objectDP = (frmDatPhong) Application.OpenForms["frmDatPhong"];
+        frmDatPhongDon objectDPD = (frmDatPhongDon)Application.OpenForms["frmDatPhongDon"];
+        public string _valueDatPhongDonKH;
 
         public frmKhachHang()
         {
@@ -186,10 +188,26 @@ namespace THUEPHONG
         {
             if(gvDanhSach.GetFocusedRowCellValue("IDKH") != null)
             {
-                objectDP.loadDataCb_KhachHang();
-                objectDP.setKhachHang(int.Parse(gvDanhSach.GetFocusedRowCellValue("IDKH").ToString()));
-                this.Close();
-                //MessageBox.Show(gvDanhSach.GetFocusedRowCellValue("IDKH").ToString());  //DEBUG
+               if(_valueDatPhongDonKH == "datphongdon")
+               {
+                    if(objectDPD != null)
+                    {
+                        objectDPD.loadDataCb_KhachHang();
+                        objectDPD.setKhachHang(int.Parse(gvDanhSach.GetFocusedRowCellValue("IDKH").ToString()));
+                        this.Close();
+                    }
+               }
+               else
+               {
+
+                    if(objectDP != null)
+                    {
+                        objectDP.loadDataCb_KhachHang();
+                        objectDP.setKhachHang(int.Parse(gvDanhSach.GetFocusedRowCellValue("IDKH").ToString()));
+                        this.Close();
+                        //MessageBox.Show(gvDanhSach.GetFocusedRowCellValue("IDKH").ToString());  //DEBUG
+                    }
+                }
             }
         }
     }

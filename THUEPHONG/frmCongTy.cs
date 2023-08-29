@@ -146,6 +146,7 @@ namespace THUEPHONG
             btnThem.Visible= t;
             btnSua.Visible= t;
             btnXoa.Visible= t;
+            btnIn.Visible = t;
             btnLuu.Visible= !t;
             btnBoqua.Visible= !t;
 
@@ -198,6 +199,14 @@ namespace THUEPHONG
             {
                 e.Handled = true; // Chặn ký tự không phải số
             }
+        }
+
+        private void btnIn_Click(object sender, EventArgs e)
+        {
+            frmReportCongTy rpCongTy = new frmReportCongTy();
+            rpCongTy.ShowDialog();
+
+
         }
 
         /* private void gvDanhSach_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)

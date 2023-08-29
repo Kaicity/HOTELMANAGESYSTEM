@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using THUEPHONG.FormReport;
 
 namespace THUEPHONG
 {
@@ -30,16 +31,16 @@ namespace THUEPHONG
         PHONG _phong;
 
         //Ma Cong Ty va MaDonVi Default khong can phai nhap du lieu
-        string _maCty;
-        string _maDvi;
+        public string _maCty;
+        public string _maDvi;
 
         //Xu ly keo tha value
-        int _idPhong;
-        string _tenphong;
+        int _idPhong = 0;
+        string _tenphong = "";
 
         //ID Value get
-        int _idDatPhong = 0;
-        int _idDatPhongCT;
+        public int _idDatPhong = 0;
+        int _idDatPhongCT; //test
 
         //Value number money
         double totalPhongAndSanPham;
@@ -48,12 +49,14 @@ namespace THUEPHONG
         //Value Update Index moi ngay
         int _update_by = 1;
 
-
         //Khai bao mot List<> su dung cho Gridview San Pham vi khi Click chon khong cung cau truc 
         List<OBJ_DPSP> listDPSP;
 
         //Reload formMain khi thay doi Du Lieu 
         FrmMainFull objMain = (FrmMainFull)Application.OpenForms["frmMainFull"];
+
+        //Dat gia tri loading khi luu du lieu
+        private bool isLoading = false;
 
 
         public frmDatPhong()
@@ -73,6 +76,9 @@ namespace THUEPHONG
 
         private void frmDatPhong_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+
             _datphong = new DATPHONG();
             _khachhang = new KHACHHANG();
             _sanpham = new SANPHAM();
@@ -81,6 +87,8 @@ namespace THUEPHONG
             _datphongct = new DATPHONGCT();
             _phong = new PHONG();
             _datphongsp = new DATPHONGSP();
+
+            stopLoadingAnimation();
 
             var _pr = _sys_param.GetParam();
             _maCty = _pr.MACTY;
@@ -112,6 +120,7 @@ namespace THUEPHONG
         {
             gcDanhSach.DataSource = _datphong.getAllDaTaDP(dateDiTuNgay.Value, dateDiDenNgay.Value, _maCty, _maDvi);
             gvDanhSach.OptionsBehavior.Editable = false;
+
         }
 
         void loadSanPham()
@@ -127,6 +136,18 @@ namespace THUEPHONG
             cbKhachHang.ValueMember = "IDKH";
             cbKhachHang.DisplayMember = "HOTEN";
         }
+
+        void resetFieldThem()
+        {
+            //Reset tat ca gia tri khi them moi 
+            DataTable dt = myFunction.layDuLieu("SELECT p.IDPHONG, p.TENPHONG, lp.DONGIA, t.IDTANG, t.TENTANG, lp.TENLOAIPHONG FROM tb_phong p, tb_tang t, tb_loaiphong lp WHERE p.IDTANG = t.IDTANG AND p.IDLOAIPHONG = lp.IDLOAIPHONG AND p.TRANGTHAI = 0 AND NOT lp.TENLOAIPHONG = 'None'");
+
+            gvPhong.DataSource = dt;
+            gvPhongDat.DataSource = dt.Clone();
+
+            gvSuDungSPDV.DataSource = _datphongsp.getAllDataTable(0);
+        }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             _them = true;
@@ -134,6 +155,10 @@ namespace THUEPHONG
             showTextBox(true);
             tabPage.SelectedTab = pageChiTiet;
             lockGridDataDP_DPSP(true);
+            //Reset thong tin
+            resetField();
+            resetFieldThem();
+
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -147,6 +172,13 @@ namespace THUEPHONG
                 DialogResult dialogResult = MessageBox.Show("Bạn muốn sửa thông tin này ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    var dp = _datphong.getItem(_idDatPhong);
+                    if(dp.STATUS.Value == true)
+                    {
+                        MessageBox.Show("Đơn đặt phòng đã thanh toán không thể chỉnh sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tabPage.SelectedTab = pageDanhSach;
+                        return;
+                    }
                     showHideControls(false);
                     _them = false;
                     showTextBox(true);
@@ -162,49 +194,96 @@ namespace THUEPHONG
                     return;
            }
         }
-
-        private void btnXoa_Click(object sender, EventArgs e)
+        //Action xoa se anh huong de du lieu nen khong can thiet phai xoa
+        private async void btnXoa_Click(object sender, EventArgs e)
         {
-             if (_idDatPhong == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn thông tin dữ liệu cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
+            
+             /*if (_idDatPhong == 0)
+             {
+                MessageBox.Show("Vui lòng chọn thông tin dữ liệu cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             }
+             else
+             {
                 if (MessageBox.Show("Bạn có chắc chắn xóa không", "Thông báo",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    //Cap nhat nhung phong khi bi xoa khoi danh sach thi tro ve trang thai false
-                    var listDpct = _datphongct.getAllByDatPhong(_idDatPhong);
-                    foreach(var item in listDpct)
+                    if (!isLoading)
                     {
-                        _phong.updateStatus((int)item.IDPHONG, false);
+                        isLoading = true;
+                        startLoadingAnimation();
+
+                        //Cap nhat nhung phong khi bi xoa khoi danh sach thi tro ve trang thai false
+                        var listDpct = _datphongct.getAllByDatPhong(_idDatPhong);
+                        foreach (var item in listDpct)
+                        {
+                            _phong.updateStatus((int)item.IDPHONG, false);
+                        }
+
+                        _datphongsp.deleteAll(_idDatPhong);
+
+                        _datphongct.deleteAll(_idDatPhong);
+
+                        _datphong.delete(_idDatPhong);
+
+                        loadDataDatPhong();
+                        new frmDatPhong();
+                        objMain.gControl.Gallery.Groups.Clear();
+                        objMain.showRoom();
+
+                        await Task.Delay(2000);
+                        stopLoadingAnimation();
+                        isLoading = false;
+
+                        //Tro ve trang danh sach va reset thong tin
+                        tabPage.SelectedTab = pageDanhSach;
+                        //Reset thong tin
+                        resetField();
+                        resetFieldThem();
                     }
-
-                    _datphongsp.deleteAll(_idDatPhong);
-                    
-                    _datphongct.deleteAll(_idDatPhong);
-
-                    _datphong.delete(_idDatPhong);
-
-                    loadDataDatPhong();
-                }  
-            }
+                   
+                }
+            }*/
         }
 
-        private void btnLuu_Click(object sender, EventArgs e)
+        private async void btnLuu_Click(object sender, EventArgs e)
         {
-            //Xac nhan Luu cac du lieu vua them
-            saveData();
-            //Reload form main
-            objMain.reloadChangeForm();
-            _them = false;
-            //loadData();
-            showHideControls(true);
-            showTextBox(false);
-            resetField();
-            loadDataDatPhong();
+            //Loading
+            if (!isLoading)
+            {
+                isLoading= true;
+                startLoadingAnimation();
 
+                //thuc hien tai du lieu
+                await Task.Delay(2000);  //Gia lap viec tai du lieu trong 3s
+
+                stopLoadingAnimation();
+                isLoading = false;
+
+                //____________________________
+
+                if (gvPhongDat.Rows.Count <= 0)
+                {
+                    MessageBox.Show("Không tìm thấy phòng được đặt, lưu thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    //Xac nhan Luu cac du lieu vua them
+                    saveData();
+                    //Reload form main
+                    //objMain.reloadChangeForm();
+                    objMain.gControl.Gallery.Groups.Clear();
+                    objMain.showRoom();
+                    _them = false;
+                    //loadData();
+                    showHideControls(true);
+                    showTextBox(false);
+                    loadDataDatPhong();
+                }
+
+                //______________________________        
+            }
+            
         }
         void saveData()
         {
@@ -384,6 +463,7 @@ namespace THUEPHONG
 
                 }
 
+
                 //Cap nhat trang thay don dat da thanh toan => phong trong
                 var _phongDat = _datphongct.getAllByDatPhong(_idDatPhong);
 
@@ -406,13 +486,28 @@ namespace THUEPHONG
         }
         private void btnIn_Click(object sender, EventArgs e)
         {
-
+            if(tabPage.SelectedTab == pageDanhSach)
+            {
+                //Report thong tin danh sach dat phong theo doan
+                frmReportDatPhongTheoDoan rdp = new frmReportDatPhongTheoDoan();
+                rdp.ShowDialog();
+            }
+            else
+            {
+                if (_idDatPhong == 0)
+                    MessageBox.Show("Vui lòng chọn thông tin đặt phòng trước khi in ấn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+                    //Report thong din dat phong chi tiet theo doan
+                    frmReportDatPhongDon rdpct = new frmReportDatPhongDon();
+                    rdpct.ShowDialog();
+                }
+            }
         }
         void showHideControls(bool t)
         {
             btnThem.Visible = t;
             btnSua.Visible = t;
-            btnXoa.Visible = t;
             btnIn.Visible = t;
             btnLuu.Visible = !t;
             btnBoqua.Visible = !t;
@@ -437,6 +532,11 @@ namespace THUEPHONG
             tfGhiChu.Text = "";
             numSLNguoi.Value = 1;
             checkTheoDoan.Checked = false;
+            tfTotal.Text = "0.0 đ";
+            tfGiaTienDPSP.Text = "0.0 đ";
+            tfGiaPhong.Text = "0.0 đ";
+            tfSlPhong.Text = "0";
+            tfSl_DPSP.Text = "0";
         }
 
         private void btnAddNewKH_Click(object sender, EventArgs e)
@@ -533,6 +633,9 @@ namespace THUEPHONG
 
                 gvPhongDat.Rows.RemoveAt(e.RowIndex);
 
+                //Sau khi xoa dong du lieu cap nhat lai phong trang thai false
+                _phong.updateStatus(idPhongDel, false);
+
                 //duyet du lieu vua xoa bang tren co ton tai bang duoi hay khong
                 for (int i = 0; i < gvSuDungSPDV.RowCount;)
                 {
@@ -610,6 +713,11 @@ namespace THUEPHONG
                     sp.IDSP = int.Parse(gvSanPhamDV.Rows[e.RowIndex].Cells["IDSP"].Value.ToString());
                     sp.TENSP = gvSanPhamDV.Rows[e.RowIndex].Cells["TENSP"].Value.ToString();
                     sp.IDPHONG = _idPhong;
+                    if(sp.IDPHONG == 0)
+                    {
+                        MessageBox.Show("Vui lòng chọn lại phòng để cập nhật sản phẩm & dịch vụ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     sp.TENPHONG = _tenphong;
                     sp.SOLUONG = 0;
                     sp.DONGIA = float.Parse(gvSanPhamDV.Rows[e.RowIndex].Cells["DONGIA"].Value.ToString());
@@ -824,14 +932,14 @@ namespace THUEPHONG
 
         private void gvPhongDat_Click(object sender, EventArgs e)
         {
-            if (gvPhongDat.Rows.Count > 0)
+            /*if (gvPhongDat.Rows.Count > 0)
             {
                 for (int i = 0; i < gvPhongDat.Rows.Count; i++)
                 {
                     _idPhong = int.Parse(gvPhongDat.Rows[i].Cells["dpIDPHONG"].Value.ToString());
                     _tenphong = gvPhongDat.Rows[i].Cells["dpTENPHONG"].Value.ToString();
                 }
-            }
+            }*/
         }
 
         private void gvDanhSach_Click(object sender, EventArgs e)
@@ -860,7 +968,7 @@ namespace THUEPHONG
             /* DateTimePicker dtp = sender as DateTimePicker;
              DateTime dtValue = dtp.Value;
 
-             if(dtValue < DateTime.Today)
+             if (dtValue < DateTime.Today)
              {
                  //Ngay dat khong be hon ngay hien tai
                  MessageBox.Show("Ngày đặt không thể trước ngày hiện tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -869,6 +977,7 @@ namespace THUEPHONG
 
              DateTime setNgayTra = dtValue.AddDays(1);
              dateNgayTra.Value = setNgayTra;*/
+            calcu();
         }
 
         private void dateNgayTra_ValueChanged(object sender, EventArgs e)
@@ -997,6 +1106,7 @@ namespace THUEPHONG
         void loadClickDataDPSP()
         {
             gvSuDungSPDV.DataSource = _datphongsp.getAllDataTable(_idDatPhong);
+            listDPSP = _datphongsp.getAllDataTable(_idDatPhong);
         }
         void lockGridDataDP_DPSP(bool t)
         {
@@ -1037,6 +1147,39 @@ namespace THUEPHONG
                         return;
                 }
             }
+        }
+
+        void startLoadingAnimation()
+        {
+            this.picLoading.Visible = true;
+        }
+
+        void stopLoadingAnimation()
+        {
+            this.picLoading.Visible = false;
+        }
+
+        private void gvDanhSach_RowStyle(object sender, RowStyleEventArgs e)
+        {
+
+            if (e.RowHandle >= 0) // Make sure it's a valid row
+            {
+                bool status = bool.Parse(gvDanhSach.GetRowCellValue(e.RowHandle, "STATUS").ToString());
+
+                if (status)
+                {
+                    e.Appearance.BackColor = Color.LightGreen;
+                }
+            }
+        }
+
+        //Set IdPhong, TenPhong khi chon lai phong muon dat san pham va dich vu
+        private void gvPhongDat_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            _idPhong = int.Parse(gvPhongDat.Rows[e.RowIndex].Cells["dpIDPHONG"].Value.ToString());
+            _tenphong = gvPhongDat.Rows[e.RowIndex].Cells["dpTENPHONG"].Value.ToString();
+
+            MessageBox.Show("Bạn chọn " + _tenphong + "(*)", "Thông báo");
         }
     }
 }

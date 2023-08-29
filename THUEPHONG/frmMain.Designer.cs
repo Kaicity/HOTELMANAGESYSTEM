@@ -44,8 +44,9 @@
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
             this.btnDatphong = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSanPhamThanhToan = new DevExpress.XtraBars.BarButtonItem();
+            this.btnCapNhatSPDV = new DevExpress.XtraBars.BarButtonItem();
             this.btnThanhToan = new DevExpress.XtraBars.BarButtonItem();
+            this.btnChuyenPhong = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -56,6 +57,7 @@
             this.barDockControl2 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl3 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
+            this.btnXemthongTinphong = new DevExpress.XtraBars.BarButtonItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1.Panel1)).BeginInit();
@@ -131,7 +133,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gControl);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(990, 484);
-            this.splitContainerControl1.SplitterPosition = 266;
+            this.splitContainerControl1.SplitterPosition = 287;
             this.splitContainerControl1.TabIndex = 1;
             // 
             // navBarMain
@@ -144,8 +146,8 @@
             this.navBarMain.LargeImages = this.imageList1;
             this.navBarMain.Location = new System.Drawing.Point(0, 0);
             this.navBarMain.Name = "navBarMain";
-            this.navBarMain.OptionsNavPane.ExpandedWidth = 266;
-            this.navBarMain.Size = new System.Drawing.Size(266, 484);
+            this.navBarMain.OptionsNavPane.ExpandedWidth = 287;
+            this.navBarMain.Size = new System.Drawing.Size(287, 484);
             this.navBarMain.SmallImages = this.imageList2;
             this.navBarMain.TabIndex = 0;
             this.navBarMain.Text = "navBarControl1";
@@ -179,7 +181,7 @@
             this.gControl.Location = new System.Drawing.Point(0, 0);
             this.gControl.Name = "gControl";
             this.barManager1.SetPopupContextMenu(this.gControl, this.popupMenu1);
-            this.gControl.Size = new System.Drawing.Size(714, 484);
+            this.gControl.Size = new System.Drawing.Size(693, 484);
             this.gControl.TabIndex = 0;
             this.gControl.Text = "galleryControl1";
             // 
@@ -187,7 +189,7 @@
             // 
             this.galleryControlClient1.GalleryControl = this.gControl;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(693, 480);
+            this.galleryControlClient1.Size = new System.Drawing.Size(672, 480);
             // 
             // galleryDropDown1
             // 
@@ -203,16 +205,20 @@
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.btnDatphong,
-            this.btnSanPhamThanhToan,
-            this.btnThanhToan});
-            this.barManager1.MaxItemId = 3;
+            this.btnCapNhatSPDV,
+            this.btnThanhToan,
+            this.btnChuyenPhong,
+            this.btnXemthongTinphong});
+            this.barManager1.MaxItemId = 6;
             // 
             // popupMenu1
             // 
             this.popupMenu1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.btnDatphong),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnSanPhamThanhToan),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnThanhToan)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnCapNhatSPDV),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnThanhToan),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnChuyenPhong),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnXemthongTinphong)});
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
             this.popupMenu1.Popup += new System.EventHandler(this.popupMenu1_Popup);
@@ -221,20 +227,34 @@
             // 
             this.btnDatphong.Caption = "Đặt phòng";
             this.btnDatphong.Id = 0;
+            this.btnDatphong.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDatphong.ImageOptions.SvgImage")));
             this.btnDatphong.Name = "btnDatphong";
             this.btnDatphong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDatphong_ItemClick);
             // 
-            // btnSanPhamThanhToan
+            // btnCapNhatSPDV
             // 
-            this.btnSanPhamThanhToan.Caption = "Cập nhật sản phẩm - dịch vụ";
-            this.btnSanPhamThanhToan.Id = 1;
-            this.btnSanPhamThanhToan.Name = "btnSanPhamThanhToan";
+            this.btnCapNhatSPDV.Caption = "Cập nhật sản phẩm - dịch vụ";
+            this.btnCapNhatSPDV.Id = 1;
+            this.btnCapNhatSPDV.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnCapNhatSPDV.ImageOptions.Image")));
+            this.btnCapNhatSPDV.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnCapNhatSPDV.ImageOptions.LargeImage")));
+            this.btnCapNhatSPDV.Name = "btnCapNhatSPDV";
+            this.btnCapNhatSPDV.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSanPhamThanhToan_ItemClick);
             // 
             // btnThanhToan
             // 
             this.btnThanhToan.Caption = "Thanh Toán";
             this.btnThanhToan.Id = 2;
+            this.btnThanhToan.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnThanhToan.ImageOptions.SvgImage")));
             this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThanhToan_ItemClick);
+            // 
+            // btnChuyenPhong
+            // 
+            this.btnChuyenPhong.Caption = "Chuyển phòng";
+            this.btnChuyenPhong.Id = 3;
+            this.btnChuyenPhong.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnChuyenPhong.ImageOptions.SvgImage")));
+            this.btnChuyenPhong.Name = "btnChuyenPhong";
+            this.btnChuyenPhong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnChuyenPhong_ItemClick);
             // 
             // barDockControlTop
             // 
@@ -274,6 +294,7 @@
             this.imageList3.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList3.Images.SetKeyName(0, "room");
             this.imageList3.Images.SetKeyName(1, "room_person");
+            this.imageList3.Images.SetKeyName(2, "persons.png");
             // 
             // barManager2
             // 
@@ -314,6 +335,14 @@
             this.barDockControl4.Location = new System.Drawing.Point(990, 0);
             this.barDockControl4.Manager = this.barManager2;
             this.barDockControl4.Size = new System.Drawing.Size(0, 540);
+            // 
+            // btnXemthongTinphong
+            // 
+            this.btnXemthongTinphong.Caption = "Xem Phòng";
+            this.btnXemthongTinphong.Id = 5;
+            this.btnXemthongTinphong.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnXemthongTinphong.ImageOptions.SvgImage")));
+            this.btnXemthongTinphong.Name = "btnXemthongTinphong";
+            this.btnXemthongTinphong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnXemthongTinphong_ItemClick);
             // 
             // FrmMainFull
             // 
@@ -364,7 +393,7 @@
         private DevExpress.XtraNavBar.NavBarControl navBarMain;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
-        private DevExpress.XtraBars.Ribbon.GalleryControl gControl;
+        public DevExpress.XtraBars.Ribbon.GalleryControl gControl;
         private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient1;
         private DevExpress.XtraBars.Ribbon.GalleryDropDown galleryDropDown1;
         private System.Windows.Forms.ImageList imageList3;
@@ -374,7 +403,7 @@
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraBars.BarButtonItem btnDatphong;
-        private DevExpress.XtraBars.BarButtonItem btnSanPhamThanhToan;
+        private DevExpress.XtraBars.BarButtonItem btnCapNhatSPDV;
         private DevExpress.XtraBars.BarButtonItem btnThanhToan;
         private DevExpress.XtraBars.PopupMenu popupMenu1;
         private DevExpress.XtraBars.BarDockControl barDockControl3;
@@ -382,5 +411,7 @@
         private DevExpress.XtraBars.BarDockControl barDockControl1;
         private DevExpress.XtraBars.BarDockControl barDockControl2;
         private DevExpress.XtraBars.BarDockControl barDockControl4;
+        private DevExpress.XtraBars.BarButtonItem btnChuyenPhong;
+        private DevExpress.XtraBars.BarButtonItem btnXemthongTinphong;
     }
 }
