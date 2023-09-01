@@ -47,6 +47,7 @@
             this.btnCapNhatSPDV = new DevExpress.XtraBars.BarButtonItem();
             this.btnThanhToan = new DevExpress.XtraBars.BarButtonItem();
             this.btnChuyenPhong = new DevExpress.XtraBars.BarButtonItem();
+            this.btnXemthongTinphong = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -57,7 +58,6 @@
             this.barDockControl2 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl3 = new DevExpress.XtraBars.BarDockControl();
             this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
-            this.btnXemthongTinphong = new DevExpress.XtraBars.BarButtonItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1.Panel1)).BeginInit();
@@ -256,6 +256,14 @@
             this.btnChuyenPhong.Name = "btnChuyenPhong";
             this.btnChuyenPhong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnChuyenPhong_ItemClick);
             // 
+            // btnXemthongTinphong
+            // 
+            this.btnXemthongTinphong.Caption = "Xem Phòng";
+            this.btnXemthongTinphong.Id = 5;
+            this.btnXemthongTinphong.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnXemthongTinphong.ImageOptions.SvgImage")));
+            this.btnXemthongTinphong.Name = "btnXemthongTinphong";
+            this.btnXemthongTinphong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnXemthongTinphong_ItemClick);
+            // 
             // barDockControlTop
             // 
             this.barDockControlTop.CausesValidation = false;
@@ -336,16 +344,10 @@
             this.barDockControl4.Manager = this.barManager2;
             this.barDockControl4.Size = new System.Drawing.Size(0, 540);
             // 
-            // btnXemthongTinphong
-            // 
-            this.btnXemthongTinphong.Caption = "Xem Phòng";
-            this.btnXemthongTinphong.Id = 5;
-            this.btnXemthongTinphong.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnXemthongTinphong.ImageOptions.SvgImage")));
-            this.btnXemthongTinphong.Name = "btnXemthongTinphong";
-            this.btnXemthongTinphong.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnXemthongTinphong_ItemClick);
-            // 
             // FrmMainFull
             // 
+            this.Appearance.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 540);

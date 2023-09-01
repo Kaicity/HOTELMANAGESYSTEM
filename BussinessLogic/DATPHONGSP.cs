@@ -26,7 +26,7 @@ namespace BussinessLogic
             return db.tb_datphong_sanpham.ToList();
         }
 
-        public List<OBJ_DPSP> getAllDataTable(int iddp) 
+        public List<OBJ_DPSP> getAllDataTableDatPhongSanPham(int iddp) 
         { 
             var listDPSP = db.tb_datphong_sanpham.Where(x => x.IDDP == iddp).ToList();
             List<OBJ_DPSP> list_objSPDV = new List<OBJ_DPSP>();
@@ -56,6 +56,13 @@ namespace BussinessLogic
             }
             return list_objSPDV;
         }
+
+        //Lay danh sach tat ca san pham da duoc su dung, de cap nhat chuyen phong bang idsp
+        public List<tb_datphong_sanpham> getDataPhongSanPham(int iddp, int iddpct)
+        {
+            return db.tb_datphong_sanpham.Where(x => x.IDDP == iddp && x.IDDPCT == iddpct).ToList();
+        }
+
         public void add(tb_datphong_sanpham datphongSP)
         {
             try

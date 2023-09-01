@@ -91,6 +91,7 @@ namespace THUEPHONG
 
             showHideControls(true);
             showTextBox(true);
+            dateNgayTra.Enabled = false;
 
             //load thong tin chon phong
             loadSanPham();
@@ -246,53 +247,7 @@ namespace THUEPHONG
                 dpct = new tb_datphong_chitiet();
                 dpct.IDDP = _dpObj.ID;
                 dpct.IDPHONG = _idPhong;
-
-                //Xu ly ngay 
-                if (dateNgayDat.Value.Day < dateNgayTra.Value.Day && dateNgayDat.Value.Month == dateNgayTra.Value.Month)
-                {
-                    dpct.SONGAYO = dateNgayTra.Value.Day - dateNgayDat.Value.Day;
-                }
-                else if (dateNgayDat.Value.Day > dateNgayTra.Value.Day || dateNgayDat.Value.Month != dateNgayTra.Value.Month)
-                {
-                    if (dateNgayDat.Value.Month == dateNgayTra.Value.Month)
-                    {
-                        MessageBox.Show("Ngày trả không thể trước ngày đặt phòng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    else if (dateNgayDat.Value.Month > dateNgayTra.Value.Month)
-                    {
-                        MessageBox.Show("Tháng đặt phòng không thể trước ngày đặt phòng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    else
-                    {
-                        //Ngay dat
-                        int nowDays = dateNgayDat.Value.Day;
-
-                        int year = dateNgayDat.Value.Year;
-                        int month = dateNgayDat.Value.Month;
-
-                        int maxDay = DateTime.DaysInMonth(year, month);
-
-                        MessageBox.Show((nowDays).ToString());
-                        MessageBox.Show(maxDay.ToString());
-
-                        //NgayTra
-                        int daysOfMonth = dateNgayTra.Value.Day;
-
-                        MessageBox.Show((maxDay - nowDays).ToString());
-                        MessageBox.Show(daysOfMonth.ToString(), "Ngay thang moi");
-
-                        dpct.SONGAYO = (maxDay - nowDays + 1) + daysOfMonth;
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("Lỗi Ngày Tháng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
+                dpct.SONGAYO = _songayo;
                 dpct.DONGIA = _dongGiaPhong;
                 dpct.THANHTIEN = (double)dpct.SONGAYO * dpct.DONGIA;
                 dpct.NGAY = DateTime.Now;
@@ -361,7 +316,7 @@ namespace THUEPHONG
                 dpct = new tb_datphong_chitiet();
                 dpct.IDDP = _dpObj.ID;
                 dpct.IDPHONG = _idPhong;
-                dpct.SONGAYO = dateNgayTra.Value.Day - dateNgayDat.Value.Day;
+                dpct.SONGAYO = _songayo;
                 dpct.DONGIA = _dongGiaPhong;
                 dpct.THANHTIEN = (double)dpct.SONGAYO * dpct.DONGIA;
                 dpct.NGAY = DateTime.Now;
@@ -442,7 +397,7 @@ namespace THUEPHONG
                 listDPSP.Clear();
                 addContinue.Clear();
             }
-            gvSuDungSPDV.DataSource = _datphongsp.getAllDataTable(0);
+            gvSuDungSPDV.DataSource = _datphongsp.getAllDataTableDatPhongSanPham(0);
         }
 
         private void btnIn_Click(object sender, EventArgs e)
@@ -679,33 +634,47 @@ namespace THUEPHONG
 
         private void dateNgayTra_ValueChanged(object sender, EventArgs e)
         {
-            DateTimePicker dtp = sender as DateTimePicker;
-            DateTime dtValue = dtp.Value;
+            DateTimePicker getNgayTra = sender as DateTimePicker;
+            DateTime ngayTraValue = getNgayTra.Value;
 
             DateTimePicker getNgayDat = dateNgayDat;
             DateTime ngayDatValue = getNgayDat.Value;
 
-            if (dtValue == DateTime.Today)
+            if (ngayTraValue == DateTime.Today)
             {
                 //Ngay dat khong be hon ngay hien tai
                 MessageBox.Show("Ngày trả không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dtp.Value = ngayDatValue.AddDays(1);
+                getNgayTra.Value = ngayDatValue.AddDays(1);
             }
-            if (dtValue < ngayDatValue)
+            if (ngayTraValue < ngayDatValue)
             {
                 //Ngay dat khong be hon ngay hien tai
                 MessageBox.Show("Ngày trả không thể trước ngày đặt", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dtp.Value = ngayDatValue.AddDays(1);
+                getNgayTra.Value = ngayDatValue.AddDays(1);
 
             }
-            if (dtValue.Month - ngayDatValue.Month >= 2)
+
+            if(ngayTraValue.Month == ngayDatValue.Month)
             {
-                //Ngay dat khong be hon ngay hien tai
-                MessageBox.Show("Hệ thống chỉ được đặt/trả phòng trong 30 ngày kể từ tháng bắt đầu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dtp.Value = ngayDatValue.AddDays(1);
+                _songayo = ngayTraValue.Day - ngayDatValue.Day;
             }
-            _songayo = dateNgayTra.Value.Day - dateNgayDat.Value.Day;
+            else
+            {
+                TimeSpan soNgayDat = ngayTraValue - ngayDatValue;
+                _songayo = soNgayDat.Days;
+            }
             calcu();
+        }
+
+        private void dateNgayDat_ValueChanged(object sender, EventArgs e)
+        {
+            DateTimePicker getNgayDat = sender as DateTimePicker;
+            DateTime ngayDatValue = getNgayDat.Value;
+
+            if(ngayDatValue != null)
+            {
+                dateNgayTra.Enabled = true;
+            }
         }
 
         private void gvSuDungSPDV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -753,6 +722,7 @@ namespace THUEPHONG
 
         public void loadThongTinDatPhongDon()
         {
+            bool theoDoan = false; // gia tri xem don dat phong co theo doan
             var dpct = _datphongct.getItemByPhong(_idPhong);
             
             if (!_them && dpct != null) 
@@ -765,6 +735,9 @@ namespace THUEPHONG
                 numSLNguoi.Value = dp.SONGUOIO.Value;
                 cbTrangThai.SelectedValue = dp.STATUS;
                 tfGhiChu.Text = dp.GHICHU.ToString();
+                
+                //Check theo doan
+                theoDoan = dp.THEODOAN.Value;
 
                 _dongGiaPhong = double.Parse(dpct.DONGIA.ToString());
             }
@@ -775,12 +748,26 @@ namespace THUEPHONG
             this.tfHienThiTenPhong.Text = itemPhong.TENPHONG.ToString() + " - " + "Đơn giá: " + formatValueDonGia;
 
             loadSPDVDatPhongDon();
+
+            //open form theo doan
+            if(theoDoan)
+            {
+                if(MessageBox.Show("Phòng được đặt theo đoàn. Đến danh mục đặt phòng theo đoàn", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    this.Close();
+                    frmDatPhong frmDp = new frmDatPhong();
+                    frmDp.ShowDialog();
+                    
+                }
+                else
+                    this.Close();
+            }
         }
 
         void loadSPDVDatPhongDon()
         {
-            gvSuDungSPDV.DataSource = _datphongsp.getAllDataTable(_idDatPhong);
-            listDPSP = _datphongsp.getAllDataTable(_idDatPhong);
+            gvSuDungSPDV.DataSource = _datphongsp.getAllDataTableDatPhongSanPham(_idDatPhong);
+            listDPSP = _datphongsp.getAllDataTableDatPhongSanPham(_idDatPhong);
         }
     }
 }

@@ -292,8 +292,8 @@ namespace THUEPHONG
             //Dat Phong Khach le
             if (phong.TRANGTHAI == false)
             {
-                MessageBox.Show("Phòng chưa đặt. Vui lòng đặt phòng trước khi cập nhật sản phẩm & dịch vụ", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Phòng chưa được đặt. Vui lòng đặt phòng trước khi cập nhật sản phẩm & dịch vụ", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             frmDatPhongDon frmdpd = new frmDatPhongDon();
@@ -322,19 +322,17 @@ namespace THUEPHONG
 
         private void btnChuyenPhong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-           /* PHONG png = new PHONG();
+            PHONG png = new PHONG();
             var phong = png.getItem(int.Parse(items.Value.ToString()));
             //Dat Phong Khach le
-            if (phong.TRANGTHAI == true)
+            if (phong.TRANGTHAI == false)
             {
-                MessageBox.Show("Phòng hiện tại không còn trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Phòng chưa được đặt. Vui lòng đặt phòng trước khi sử dụng chức năng chuyển phòng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            frmDatPhongDon frmdpd = new frmDatPhongDon();
-            frmdpd._idPhong = int.Parse(items.Value.ToString());
-            frmdpd.showHideControls(false);
-            frmdpd._them = true;
-            frmdpd.ShowDialog();*/
+            frmChuyenPhong frmChuyenphong = new frmChuyenPhong();
+            frmChuyenphong._idPhong = int.Parse(items.Value.ToString());
+            frmChuyenphong.ShowDialog();
         }
 
         private void btnXemthongTinphong_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

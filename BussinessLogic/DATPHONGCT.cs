@@ -18,21 +18,28 @@ namespace BussinessLogic
         {
             return db.tb_datphong_chitiet.FirstOrDefault(x => x.IDDPCT == idDpCT);
         }
+        public tb_datphong_chitiet getItem(int idDp, int idPhong)
+        {
+            return db.tb_datphong_chitiet.FirstOrDefault(x => x.IDDP == idDp && x.IDPHONG == idPhong);
+        }
 
         public List<tb_datphong_chitiet> getAll()
         {
             return db.tb_datphong_chitiet.ToList();
         }
+
+        //Lay danh sach cac phong da duoc su dung dau vao IDPHONG va lay danh sach moi nhat duoc sap xep theo NGAY moi nhat
         public tb_datphong_chitiet getItemByPhong(int idPhong)
         {
             return db.tb_datphong_chitiet.OrderByDescending(x => x.NGAY).FirstOrDefault(y => y.IDPHONG == idPhong);
         }
+        
         public List<tb_datphong_chitiet> getAllByDatPhong(int iddp) 
         {
             return db.tb_datphong_chitiet.Where(x => x.IDDP == iddp).ToList();
         }
 
-        //Query kiem thu
+        //Query kiem thu testing
         /*public List<OBJ_PHONG_THEODOAN> getPhong_TheoDoan()
         {
             var query = db.tb_datphong_chitiet
